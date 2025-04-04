@@ -1,0 +1,263 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    font-size: 18px;
+}
+
+.login {
+    background-color: #fff;
+    padding: 25px 31px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 533px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: 52px;
+    font-weight: bold;
+    color: #090914;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    padding-left: 23px;
+    padding-right: 23px;
+}
+
+.mail,
+.pass {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 18px;
+    color: #000000;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: left;
+}
+
+input {
+    padding: 19.5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+/* //////lỗi đăng nhập email */
+/* #emailLogin{
+    border: 2px solid red;
+} */
+.gmailLoginError {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: -11px;
+}
+
+.gmailLoginError p {
+    color: red;
+    margin-top: 3px;
+}
+
+#gmailLoginErrorLeaveBlank {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+#gmailLoginErrorFail {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*  */
+/* ////////lỗi đăng nhập password */
+/* #passwordLogin{
+    border: 2px solid red;
+} */
+.passwordLoginError {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.passwordLoginError p {
+    color: red;
+    margin-top: 3px;
+    margin-bottom: -11px;
+}
+
+#passwordLoginLeaveBlank {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+#passwordLoginFail {
+    display: none;
+    padding: 0;
+    margin: 0;
+}
+
+/*  */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 18.5px 0px;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-top: 33px;
+}
+
+/* hover : chuyển từ trạng thái nền cũ sang nền mới */
+button:hover {
+    background-color: #0056b3;
+}
+
+.backToRegister {
+    font-size: 18px;
+    margin-top: -30px;
+}
+
+.backToRegister p {
+    color: #B3B3B3;
+}
+
+.backToRegister a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.backToRegister a:hover {
+    text-decoration: underline;
+}
+
+
+/* css đăng ký */
+.register {
+    background-color: #fff;
+    padding: 25px 31px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 533px;
+    text-align: center;
+}
+
+.formRegister {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    padding-left: 11px;
+    padding-right: 44px;
+}
+
+.formRegister input {
+    width: 100%;
+}
+
+.clickRegister {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 18.5px 0px;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    width: 109%;
+}
+
+.clickRegister:hover {
+    background-color: #0056b3;
+}
+
+.backToLogin {
+    font-size: 18px;
+    margin-top: -30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 30px;
+    margin-bottom: -27px;
+}
+
+.backToLogin p {
+    color: #B3B3B3;
+}
+
+.backToLogin a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.backToLogin a:hover {
+    text-decoration: underline;
+}
+
+/* lỗi đăng kí tên */
+/* #nameRegister {
+    border: 2px solid red;
+} */
+#nameRegister2 {
+    margin-left: -274px;
+    align-items: flex-start;
+    color: red;
+    margin-bottom: -18px;
+    margin-top: 2px;
+    display: none;
+}
+
+/* lỗi đăng kí email */
+/* #emailRegister {
+    border: 2px solid red;
+} */
+
+#emailRegister2 {
+    color: red;
+    margin-bottom: -18px;
+    margin-top: 2px;
+    margin-left: -261px;
+    display: none;
+}
+/* lỗi đăng ký mật khẩu */
+/* #passwordRegister {
+    border: 2px solid red;
+} */
+
+#passwordRegister2 {
+    margin-left: -233px;
+    color: red;
+    margin-bottom: -18px;
+    margin-top: 2px;
+    display: none;
+}
+/* /////lỗi xác nhận mật khẩu đăng ký */
+/* #checkPasswordRegister {
+    border: 2px solid red;
+} */
+#checkPasswordRegister2 {
+    margin-left: -259px;
+    color: red;
+    margin-bottom: -18px;
+    margin-top: 2px;
+    display: none;
+}

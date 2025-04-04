@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+    font-style: normal;
+}
+a {
+    text-decoration: none;
+}
+
+#nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #212529;
+    color: #FFFFFF;
+    padding: 30px 0;
+    height: 40px;
+}
+
+.navEvent {
+    width: 1320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0px;
+}
+
+.navEvent p {
+    font-size: 19.74px;
+    /* padding: 13px 0px; */
+    padding-top: 2px;
+}
+
+.navEvent2 {
+    display: flex;
+    padding: 16px 0px;
+    gap: 16.32px;
+}
+
+.navEvent2 {margin-top: -14px;}
+
+.navEvent2 a {
+    color: #FFFFFF;
+    font-size: 14.25px;
+    text-decoration: none;
+    font-size: 14.25px;
+    transition: transform 0.3s ease;
+}
+
+.navEvent2 a:hover {
+    transform: scale(1.1);
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+    background-color: #F8F9FA;
+    padding-top: 20px;
+}
+
+.main2 {
+    height: auto;
+    width: 1296px;
+    padding: 25px;
+    background-color: #FFFFFF;
+    margin-top: 24px;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+}
+
+#mainTitle {
+    font-size: 23.59px;
+    color: #212529;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.function {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24.2px;
+}
+
+.function button {
+    background-color: #0D6EFD;
+    color: #FFFFFF;
+    font-size: 15.76px;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 24.8px;
+    cursor: pointer;
+    /* chuột thành hình bàn tay */
+}
+.function button:hover{
+    opacity: 0.8;
+    /* độ trong suốt của nó sẽ giảm xuống 80% */
+}
+.function input {
+    width: 433px;
+    height: 38px;
+    border-radius: 6px;
+    border: 0.5px solid #E5E5E5;
+    padding-left: 10px;
+}
+
+.main3 {
+    width: 100%;
+    margin-top: 20px;
+}
+.main3 p{
+    font-weight: 600;
+    font-size: 19.77px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 26.2px;
+}
+
+table th, table td {
+    /* padding: 12px;
+    text-align: left; */
+    border: 1px solid #E5E5E5;
+    padding: 10px;
+}
+
+table th:nth-child(1){
+    text-align: center;
+    padding: 9px 39px ;
+    font-size: 14.7px;
+    width: 91px;
+}
+table th:nth-child(2){
+    text-align: left;
+    padding: 8.5px 8.46px;
+    width: 927px;
+
+}
+
+table th:nth-child(3){
+    text-align: center
+}
+
+table th {
+    background-color: #343A40;
+    color: #FFFFFF;
+}
+table td button {
+    padding: 5px 9px;
+    margin-right: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 0px solid;
+}
+
+table td button:hover {
+    opacity: 0.8;
+}
+
+table td button:nth-child(1) {
+    background-color: #FFC107;
+    color: #FFFFFF;
+}
+
+table td button:nth-child(2) {
+    background-color: #DC3545;
+    color: #FFFFFF;
+}
+
+table td button:nth-child(3) {
+    background-color: #007BFF;
+    color: #FFFFFF;
+}
+.projectID{
+    display: flex;
+    justify-content: center;
+    padding: 16.2px 0;
+    border-bottom: none;
+    border-top: none;
+}
+.act{
+    display: flex;
+    justify-content: center;
+    padding: 11px 0;
+}
+#closeTheTable{
+    border: 1px solid #E5E5E5;
+}
+.main4 {
+    background-color: #F8F9FA;
+    display: flex;
+    justify-content: center;
+}
+
+.transferList {
+    padding: 24px 0px;
+    display: flex;
+    gap: 0px;
+}
+
+.transferList button {
+    padding: 7px 14px;
+    border: 1px solid #D1D1D6;
+    /* border-radius: 5px; */
+    background-color: white;
+    color: #007BFF;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.transferList button:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+.transferList button.active {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+}
+.transferList button:nth-child(5){
+    color: #212529;
+    font-weight: 700;
+}
+.transferList button:nth-child(1){
+    color: #676a6d;
+    font-weight: 700;
+    background-color: #E9ECEF;
+}
+footer{
+    background-color: #212529;
+    display: flex;
+    justify-content: center;
+}
+footer div{
+    color: #FFFFFF;
+    font-size: 16.02px;
+    padding: 16px 0px;
+}
+
+
+
+/* 
+.none{
+    display: none;
+} */
+
+
+
+/* bảng chỉnh sửa */
+.modalAddNewEdit {
+    position: fixed;  /* Đảm bảo modal ở trên cùng của trang */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    display: flex;
+    justify-content: center;
+    z-index: 1000; /* Đảm bảo modal luôn ở trên các phần tử khác */
+    padding-top: 33px;
+}
+
+.modalAddNewEdit {
+    display: none;
+}
+
+.modalAddNewEdit2 {
+    width: 480px;
+    height: 397px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Bóng mờ cho modal */
+}
+
+.modalAddNewOfTitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 22px;
+    position: relative;
+    border-bottom: 0.5px solid #E5E5E5;
+}
+
+.modalAddNewOfTitle {
+    padding-bottom: 0px;
+}
+
+.modalAddNewOfTitle p {
+    font-size: 23.3px;
+    font-weight: 600;
+}
+
+.modalAddNewOfTitle i {
+    position: absolute;
+    font-size: 23px;
+    color: #818181;
+    top: 23px;
+    right: 35px;
+    cursor: pointer; /* Thêm hiệu ứng con trỏ khi hover */
+}
+
+.modalAddNewOfMain {
+    padding: 15px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+#upDateProjectName {
+    border: 1px solid red;
+}
+
+.modalAddNewOfMain p {
+    color: red;
+    font-size: 10px;
+    /* margin-top: 6px;
+    padding-bottom: 0px; */
+    display: none;
+}
+.modalAddNewOfMain input,
+.modalAddNewOfMain textarea {
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.modalAddNewOfSend {
+    display: flex;
+    justify-content: flex-end;
+    gap: 23px;
+    padding-top: 42px;
+    padding-bottom: 8px;
+    padding-right: 24px;
+    border-top: 0.5px solid #E5E5E5;
+}
+
+
+.modalAddNewOfSend button {
+    padding: 6.5px 14.5px;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#cancel {
+    background-color: #6C757D;
+    color: #FFFFFF;
+}
+
+#save {
+    background-color: #0D6EFD;
+    color: #FFFFFF;
+}
+
+
+/* phần xác nhận xóa */
+.modalErase{
+    position: fixed;  /* Đảm bảo modal ở trên cùng của trang */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    display: flex;
+    justify-content: center;
+    z-index: 1000; /* Đảm bảo modal luôn ở trên các phần tử khác */
+    padding-top: 33px;
+}
+.modalErase{
+    display: none;
+}
+.modalErase2{
+    width: 480px;
+    height: 240px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.modalEraseOfTitle{
+    display: flex;
+    justify-content: space-between;
+    padding: 17.5px 16px;
+    position: relative;
+    border-bottom: 0.5px solid #E5E5E5;
+    padding-bottom: 0px;
+}
+.modalEraseOfTitle p{
+    font-size: 23.3px;
+    font-weight: 400;
+}
+.modalEraseOfTitle i{
+    position: absolute;
+    top: 23px;
+    right: 4px;
+    padding-right: 22px;
+    font-size: 19.3px;
+}
+.notification{
+    font-size: 16px;
+    padding-top: 22px;
+    padding-bottom: 39px;
+    padding-left: 14px;
+    border-bottom: 0.5px solid #E5E5E5;
+}
+.modalEraseOfSend{
+    display: flex;
+    justify-content: right;
+    gap: 23px;
+}
+
+.modalEraseOfSend {
+    margin-top: 37px;
+}
+
+.modalEraseOfSend {
+    margin-right: 22px;
+}
+.modalEraseOfSend button{
+    padding: 6.5px 13.5px;
+    border: 0 solid;
+    border-radius: 8px;
+}
+#cancelOfErase{
+    background-color: #6C757D;
+    color: #FFFFFF;
+}
+#saveOfErase{
+    background-color: #DC3545;
+    color: #FFFFFF;
+}

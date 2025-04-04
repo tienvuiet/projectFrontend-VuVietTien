@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body class="totalFormLogin">
+    <h2>Đăng nhập</h2>
+    <div class="login">
+        <form action="" class="formLogin">
+            <div class="mail">
+                <label for="email">Email</label>
+                <input type="email" placeholder="Địa chỉ email" id="emailLogin">
+                <div class="gmailLoginError">
+                    <p id="gmailLoginErrorLeaveBlank">Email không được bỏ trống</p>
+                    <p id="gmailLoginErrorFail">Sai email</p>
+                </div>
+            </div>
+            <div class="pass">
+                <label for="password">Mật khẩu</label>
+                <input type="password" placeholder="Mật khẩu" id="passwordLogin">
+                <div class="passwordLoginError">
+                    <p id="passwordLoginLeaveBlank">Mật khẩu không được bỏ trống</p>
+                    <p id="passwordLoginFail">Sai mật khẩu</p>
+                </div>
+            </div>
+            <button id="clickLogin">Đăng nhập</button>
+            <div class="backToRegister">
+                <p>chưa có tài khoản?<a href="./register.html" id="clickRegister">Đăng ký</a></p>
+            </div>
+        </form>
+    </div>
+    <script src="../js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,774 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Rubik", sans-serif;
+    font-style: normal;
+    color: #212529;
+    /* min-height: 100vh; */
+}
+
+a {
+    text-decoration: none;
+}
+
+.none {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    /* display: none; */
+}
+
+.table button:active, .addMember button:active, .showMember button:active, .add-editTask button:active {
+    transform: scale(0.98);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #0069D9;
+    transition: all 0.2s ease; 
+}
+
+
+#task3Save:active, #add3Save:active, #saveShow4:active {
+    background-color: #0056b3;
+}
+
+#task3Cancel:active, #add3Cancel:active, #closeShow4:active {
+    background-color: #5a6268;
+}
+
+.editMission:active {
+    background-color: #e0a800; 
+}
+
+.deleteMission:active {
+    background-color: #c82333; 
+}
+
+
+#nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #212529;
+    color: #FFFFFF;
+    padding: 30px 0;
+    height: 40px;
+}
+
+.navEvent {
+    width: 1320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0px;
+}
+
+.navEvent p {
+    font-size: 19.74px;
+    /* padding: 13px 0px; */
+    padding-top: 2px;
+    color: white;
+}
+
+.navEvent2 {
+    display: flex;
+    padding: 16px 0px;
+    gap: 16.32px;
+}
+
+.navEvent2 {
+    margin-top: -14px;
+}
+
+.navEvent2 a {
+    color: #FFFFFF;
+    font-size: 14.25px;
+    text-decoration: none;
+    font-size: 14.25px;
+    transition: transform 0.3s ease;
+}
+
+.navEvent2 a:hover {
+    transform: scale(1.1);
+}
+
+footer {
+    background-color: #212529;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+footer div {
+    color: #FFFFFF;
+    font-size: 16.02px;
+    padding: 16px 0px;
+}
+
+.total {
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 1920px;
+}
+
+.main1 {
+    width: 1296px;
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 18.2px;
+}
+
+.left {
+    width: 648px;
+    /* display: flex;
+    flex-direction: column;
+    gap: 41.8px; */
+}
+
+.left h2 {
+    color: #212529;
+    font-size: 23.54px;
+}
+
+.left p {
+    font-size: 16px;
+}
+
+.left button {
+    font-size: 15.81px;
+    background-color: #0D6EFD;
+    color: white;
+    border: none;
+    padding: 7px 16.7px;
+    border-radius: 7px;
+    margin-top: 29.8px;
+}
+
+.left2 {
+    display: flex;
+    flex-direction: column;
+    gap: 22.2px;
+}
+
+.right {
+    width: 648px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.right2 {
+    width: 386px;
+}
+
+.member {
+    display: flex;
+    justify-content: space-between;
+}
+
+.member p {
+    font-size: 19.04px;
+    font-weight: 600;
+}
+
+.member button {
+    background-color: #F8F9FA;
+    border-radius: 7px;
+    padding: 5px 9px;
+    color: #6C757D;
+    border: 0.5px solid #6C757D;
+}
+
+.member2 {
+    display: flex;
+    flex-direction: row;
+    height: 48px;
+    gap: 25.31px;
+    margin-top: 16px;
+}
+
+.user {
+    display: flex;
+    gap: 8px;
+}
+
+.user1 {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: #0D6EFD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user1 p {
+    margin: 0;
+    color: #FFFFFF;
+}
+
+.position {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.position p:nth-child(1) {
+    font-weight: 500;
+    margin: 0;
+}
+
+.position p:nth-child(2) {
+    color: #6C757D;
+    font-size: 15px;
+}
+
+.moreUser {
+    width: 42px;
+    height: 40px;
+    background-color: #E2E3E5;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.moreUser b {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0px;
+    font-size: 20px;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48px;
+}
+
+.search select {
+    font-size: 15.79px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 0.5px solid #6C757D;
+}
+
+.search input {
+    font-size: 15.79px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 0.5px solid #6C757D;
+}
+
+
+
+
+
+
+
+/* phần bẳng */
+
+.total2 {
+    background-color: #F8F9FA;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 1920px;
+    margin-bottom: 24px;
+
+}
+
+.main2 {
+    width: 1296px;
+    background-color: #FFFFFF;
+    border-radius: 7px;
+    padding: 19px 17px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+#section2Title {
+    font-size: 19.72px;
+    font-weight: 500;
+}
+
+.table {
+    width: 1261px;
+}
+
+.table th {
+    font-size: 15.36px;
+    text-align: center;
+    background-color: #F8F9FA;
+    padding: 8.5px 0;
+}
+
+/* Style cho tất cả các <td> từ thứ 2 trở đi */
+.todo-section td:nth-child(n+2) {
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.todo-section td:nth-child(4),
+.todo-section td:nth-child(5) {
+    color: #0D6EFD;
+}
+
+.inProgress-section td:nth-child(n+2) {
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.inProgress-section td:nth-child(4),
+.inProgress-section td:nth-child(5) {
+    color: #0D6EFD;
+}
+
+.pending-section td:nth-child(n+2) {
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.pending-section td:nth-child(4),
+.pending-section td:nth-child(5) {
+    color: #0D6EFD;
+}
+
+.done-section td:nth-child(4),
+.done-section td:nth-child(5) {
+    color: #0D6EFD;
+}
+
+.done-section td:nth-child(n+2) {
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+.table button {
+    border: 0 solid;
+    border-radius: 6px;
+    padding: 5px 9px;
+}
+
+#short {
+    background-color: #0DCAF0;
+    padding: 3px 9px;
+    border-radius: 6px;
+    color: white;
+    font-size: 11.12px;
+    font-weight: 600;
+}
+
+#onSchedule {
+    background-color: #198754;
+    padding: 2.32px 8px;
+    border-radius: 6px;
+    color: white;
+    font-size: 11.12px;
+    font-weight: 600;
+}
+
+.editMission {
+    color: #000000;
+    font-weight: 300;
+    background-color: #FFC107;
+}
+
+.deleteMission {
+    color: #faf6f6;
+    font-weight: 300;
+    background-color: #DC3545;
+}
+
+.main2 {
+    width: 1296px;
+    background-color: #FFFFFF;
+    border-radius: 7px;
+    padding: 19px 17px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    /* Bóng nổi */
+}
+
+.table button {
+    border: 0 solid;
+    border-radius: 6px;
+    padding: 5px 9px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    /* Bóng nổi cho nút */
+    transition: box-shadow 0.3s ease-in-out;
+    /* Thêm hiệu ứng chuyển động */
+}
+
+.table button:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+/* THÊM SỬA NHIỆM VỤ */
+.add-editTask {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    /* Đảm bảo modal luôn hiển thị trên các phần tử khác */
+    display: none;
+}
+
+.tableAddEditTask {
+    width: 480px;
+    background-color: white;
+    border-radius: 6px;
+    z-index: 10000;
+    /* Đảm bảo modal nổi bật */
+}
+
+.task1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    padding-bottom: 8px;
+    position: relative;
+    border-bottom:0.5px solid#DEE2E6;
+}
+
+.task1 p {
+    font-size: 23.3px;
+    font-weight: 400;
+    color: #212529;
+}
+
+.task1 i {
+    font-size: 24px;
+    position: absolute;
+    top: 21px;
+    right: 29px;
+}
+
+.task2 {
+    display: flex;
+    flex-direction: column;
+    padding-left: 24px;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    border-bottom: 0.5px solid#DEE2E6;
+    position: relative;
+}
+.task2 p{
+    color: red;
+    position: absolute;
+    top: 87px;
+    font-size: 10px;
+}
+.task2 label {
+    display: block;
+    text-align: left;
+}
+
+.task2 input,
+.task2 select {
+    margin-bottom: 29px;
+    width: 432px;
+    height: 44px;
+    border-radius: 6px;
+    border:0.5px solid#DEE2E6;
+}
+
+.task3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 23px;
+    padding: 30px 24px;
+    padding-bottom: 8px;
+}
+
+.task3 button {
+    padding: 6.5px 14.5px;
+    border-radius: 8px;
+    border: 0px solid;
+    color: white;
+}
+
+#task3Cancel {
+    background-color: #6C757D;
+}
+
+#task3Save {
+    background-color: #0D6EFD;
+}
+
+
+
+
+
+/* THÊM THÀNH VIÊN */
+.addMember {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: fixed;
+    padding-top: 33px;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    /* Đảm bảo modal luôn hiển thị trên các phần tử khác */
+    display: none;
+}
+
+.tableAddMember {
+    width: 480px;
+    background-color: white;
+    border-radius: 6px;
+    z-index: 10000;
+    /* Đảm bảo modal nổi bật */
+
+}
+
+.add1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 15.5px 16px;
+    position: relative;
+    padding-bottom: 0px;
+    border-bottom: 0.5px solid#DEE2E6;
+}
+
+.add1 p {
+    font-size: 23.3px;
+}
+
+.add1 i {
+    font-size: 21px;
+    position: absolute;
+    top: 20px;
+    right: 23px;
+}
+
+.add2 {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 15px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-bottom:0.5px solid#DEE2E6;
+
+}
+
+.add2 p {
+    color: red;
+    font-size: 10px;
+    padding-top: 6px;
+    padding-bottom: 4px;
+    margin-bottom: 0px;
+    /* visibility: visible; */
+    /* mặc định hiện */
+    /* visibility: hidden; */
+
+}
+
+.add2 input {
+    width: 432px;
+    height: 44px;
+    border-radius: 6px;
+    border: 0.5px solid#DEE2E6;
+}
+
+.add22 {
+    margin-bottom: 16px;
+}
+
+
+.add3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 37px;
+    padding-right: 24px;
+    padding-bottom: 8px;
+    gap: 23px;
+}
+
+.add3 button {
+    width: 58px;
+    height: 37px;
+    border-radius: 6px;
+    border: none;
+    color: white;
+}
+
+#add3Cancel {
+    background-color: #6C757D;
+}
+
+#add3Save {
+    background-color: #0D6EFD;
+}
+
+
+
+/* BẢNG THÀNH VIÊN */
+.showMember {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    position: fixed;
+    padding-top: 33px;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    /* Đảm bảo modal luôn hiển thị trên các phần tử khác */
+    display: none;
+}
+
+.tableShowMember {
+    width: 598px;
+    background-color: white;
+    border-radius: 6px;
+    z-index: 10000;
+    /* Đảm bảo modal nổi bật */
+}
+
+.show1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 15.5px 16px;
+    position: relative;
+    padding-bottom: 0px;
+    border-bottom: 0.5px solid #DEE2E6;
+}
+
+.show1 p {
+    font-size: 23.3px;
+}
+
+.show1 i {
+    font-size: 21px;
+    position: absolute;
+    top: 20px;
+    right: 23px;
+}
+
+.show2 {
+    display: flex;
+    gap: 255.83px;
+    justify-content: center;
+    padding: 16px;
+}
+
+.show2 p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.show3 {
+    display: flex;
+    gap: 88px;
+    justify-content: center;
+    /* height: 43px; */
+}
+
+.show31 {
+    display: flex;
+    gap: 16px;
+}
+
+#avartaShow31 {
+    width: 40px;
+    height: 40px;
+    background-color: #0D6EFD;
+    color: white;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameShow31 {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.emailShow31 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #212529BF;
+}
+
+.show32 {
+    display: flex;
+    gap: 15.44px;
+    align-items: center;
+    margin-top: -13px;
+}
+
+.role {
+    font-size: 12px;
+    border: 0.5px solid #DEE2E6;
+    width: 148.56px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+}
+
+.garbageShow32 {
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+}
+
+.show30 {
+    height: 300px;
+    padding-bottom: 16px;
+    padding: 0 16px;
+    border-bottom: 0.5px solid#DEE2E6;
+}
+
+.show4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 37px;
+    padding-right: 24px;
+    padding-bottom: 8px;
+    gap: 23px;
+
+}
+
+.show4 button {
+    width: 58px;
+    height: 37px;
+    border-radius: 6px;
+    border: none;
+    color: white;
+}
+
+#closeShow4 {
+    background-color: #6C757D;
+}
+
+#saveShow4 {
+    background-color: #0D6EFD;
+}

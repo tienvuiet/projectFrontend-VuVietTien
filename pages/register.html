@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+    <h2>Đăng ký</h2>
+    <div class="register">
+        <form action="" class="formRegister">
+            <div>
+                <input type="text" placeholder="Họ và tên" id="nameRegister">
+                <p id="nameRegister2" style="display:none; color:red;">Tên không được bỏ trống</p>
+            </div>
+            <div>
+                <input type="email" placeholder="Địa chỉ email" id="emailRegister">
+                <p id="emailRegister2" style="display:none; color:red;">Email không được bỏ trống</p>
+            </div>
+            <div>
+                <input type="password" placeholder="Mật khẩu" id="passwordRegister">
+                <p id="passwordRegister2" style="display:none; color:red;">Mật khẩu không được bỏ trống</p>
+            </div>
+            <div>
+                <input type="password" placeholder="Xác nhận mật khẩu" id="checkPasswordRegister">
+                <p id="checkPasswordRegister2" style="display:none; color:red;">Mật khẩu không trùng khớp</p>
+            </div>
+            <button class="clickRegister">Đăng ký</button>
+            <div class="backToLogin">
+                <p>Đã có tài khoản?<a href="./login.html" id="clickLogin">Đăng nhập</a></p>
+            </div>
+        </form>
+    </div>
+    <script src="../js/register.js"></script>
+</body>
+
+</html>
