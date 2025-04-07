@@ -5,10 +5,23 @@
     font-family: "Rubik", sans-serif;
     font-style: normal;
 }
+.none{
+    min-height: 100vh;
+    background-color: #f8f9fa;
+ }
+ 
+ 
 a {
     text-decoration: none;
 }
 
+body {
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.swal2-actions{
+    display: flex;
+    gap: 20px;
+}
 #nav {
     display: flex;
     justify-content: center;
@@ -39,7 +52,9 @@ a {
     gap: 16.32px;
 }
 
-.navEvent2 {margin-top: -14px;}
+.navEvent2 {
+    margin-top: -14px;
+}
 
 .navEvent2 a {
     color: #FFFFFF;
@@ -94,10 +109,12 @@ a {
     cursor: pointer;
     /* chuột thành hình bàn tay */
 }
-.function button:hover{
+
+.function button:hover {
     opacity: 0.8;
     /* độ trong suốt của nó sẽ giảm xuống 80% */
 }
+
 .function input {
     width: 433px;
     height: 38px;
@@ -110,10 +127,12 @@ a {
     width: 100%;
     margin-top: 20px;
 }
-.main3 p{
+
+.main3 p {
     font-weight: 600;
     font-size: 19.77px;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -121,27 +140,29 @@ table {
     margin-bottom: 26.2px;
 }
 
-table th, table td {
+table th,
+table td {
     /* padding: 12px;
     text-align: left; */
     border: 1px solid #E5E5E5;
     padding: 10px;
 }
 
-table th:nth-child(1){
+table th:nth-child(1) {
     text-align: center;
-    padding: 9px 39px ;
+    padding: 9px 39px;
     font-size: 14.7px;
     width: 91px;
 }
-table th:nth-child(2){
+
+table th:nth-child(2) {
     text-align: left;
     padding: 8.5px 8.46px;
     width: 927px;
 
 }
 
-table th:nth-child(3){
+table th:nth-child(3) {
     text-align: center
 }
 
@@ -149,6 +170,7 @@ table th {
     background-color: #343A40;
     color: #FFFFFF;
 }
+
 table td button {
     padding: 5px 9px;
     margin-right: 5px;
@@ -175,21 +197,25 @@ table td button:nth-child(3) {
     background-color: #007BFF;
     color: #FFFFFF;
 }
-.projectID{
+
+.projectID {
     display: flex;
     justify-content: center;
     padding: 16.2px 0;
     border-bottom: none;
     border-top: none;
 }
-.act{
+
+.act {
     display: flex;
     justify-content: center;
     padding: 11px 0;
 }
-#closeTheTable{
+
+#closeTheTable {
     border: 1px solid #E5E5E5;
 }
+
 .main4 {
     background-color: #F8F9FA;
     display: flex;
@@ -222,21 +248,31 @@ table td button:nth-child(3) {
     color: white;
     font-weight: bold;
 }
-.transferList button:nth-child(5){
+
+.transferList button:nth-child(5) {
     color: #212529;
     font-weight: 700;
 }
-.transferList button:nth-child(1){
+
+.transferList button:nth-child(1) {
     color: #676a6d;
     font-weight: 700;
     background-color: #E9ECEF;
 }
-footer{
+
+footer {
     background-color: #212529;
     display: flex;
     justify-content: center;
 }
-footer div{
+
+footer {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+footer div {
     color: #FFFFFF;
     font-size: 16.02px;
     padding: 16px 0px;
@@ -244,24 +280,23 @@ footer div{
 
 
 
-/* 
-.none{
-    display: none;
-} */
 
 
 
 /* bảng chỉnh sửa */
 .modalAddNewEdit {
-    position: fixed;  /* Đảm bảo modal ở trên cùng của trang */
+    position: fixed;
+    /* Đảm bảo modal ở trên cùng của trang */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Nền mờ */
     display: flex;
     justify-content: center;
-    z-index: 1000; /* Đảm bảo modal luôn ở trên các phần tử khác */
+    z-index: 1000;
+    /* Đảm bảo modal luôn ở trên các phần tử khác */
     padding-top: 33px;
 }
 
@@ -274,7 +309,8 @@ footer div{
     height: 397px;
     background-color: #FFFFFF;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Bóng mờ cho modal */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    /* Bóng mờ cho modal */
 }
 
 .modalAddNewOfTitle {
@@ -300,7 +336,8 @@ footer div{
     color: #818181;
     top: 23px;
     right: 35px;
-    cursor: pointer; /* Thêm hiệu ứng con trỏ khi hover */
+    cursor: pointer;
+    /* Thêm hiệu ứng con trỏ khi hover */
 }
 
 .modalAddNewOfMain {
@@ -310,16 +347,53 @@ footer div{
     gap: 0px;
 }
 
-#upDateProjectName {
+/* #upDateProjectName {
     border: 1px solid red;
+} */
+.modalAddNewOfMain2{
+    position: relative;
 }
 
-.modalAddNewOfMain p {
+.modalAddNewOfMain2 p:nth-of-type(1) {
     color: red;
     font-size: 10px;
     /* margin-top: 6px;
     padding-bottom: 0px; */
-    display: none;
+    visibility: hidden;
+    margin-bottom: 0px;
+}
+.modalAddNewOfMain2 p:nth-of-type(2){
+    color: red;
+    font-size: 10px;
+    /* margin-top: 6px;
+    padding-bottom: 0px; */
+    visibility: hidden;
+    margin-bottom: 0px;
+    position: absolute;
+    top: 72px;
+}
+.modalAddNewOfMain2 p:nth-of-type(3){
+    color: red;
+    font-size: 10px;
+    /* margin-top: 6px;
+    padding-bottom: 0px; */
+    visibility: hidden;
+    margin-bottom: 0px;
+    position: absolute;
+    top: 72px;
+}
+.description p:nth-of-type(1){
+    margin-bottom: 0px;
+    color: red;
+    font-size: 10px;
+    visibility: hidden;
+}
+.description p:nth-of-type(2){  
+    margin-bottom: 0px;
+    color: red;
+    font-size: 10px;
+    visibility: hidden;
+    margin-top: -20px;
 }
 .modalAddNewOfMain input,
 .modalAddNewOfMain textarea {
@@ -359,29 +433,35 @@ footer div{
 
 
 /* phần xác nhận xóa */
-.modalErase{
-    position: fixed;  /* Đảm bảo modal ở trên cùng của trang */
+.modalErase {
+    position: fixed;
+    /* Đảm bảo modal ở trên cùng của trang */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Nền mờ */
     display: flex;
     justify-content: center;
-    z-index: 1000; /* Đảm bảo modal luôn ở trên các phần tử khác */
+    z-index: 1000;
+    /* Đảm bảo modal luôn ở trên các phần tử khác */
     padding-top: 33px;
 }
-.modalErase{
+
+.modalErase {
     display: none;
 }
-.modalErase2{
+
+.modalErase2 {
     width: 480px;
     height: 240px;
     background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
-.modalEraseOfTitle{
+
+.modalEraseOfTitle {
     display: flex;
     justify-content: space-between;
     padding: 17.5px 16px;
@@ -389,25 +469,29 @@ footer div{
     border-bottom: 0.5px solid #E5E5E5;
     padding-bottom: 0px;
 }
-.modalEraseOfTitle p{
+
+.modalEraseOfTitle p {
     font-size: 23.3px;
     font-weight: 400;
 }
-.modalEraseOfTitle i{
+
+.modalEraseOfTitle i {
     position: absolute;
     top: 23px;
     right: 4px;
     padding-right: 22px;
     font-size: 19.3px;
 }
-.notification{
+
+.notification {
     font-size: 16px;
     padding-top: 22px;
     padding-bottom: 39px;
     padding-left: 14px;
     border-bottom: 0.5px solid #E5E5E5;
 }
-.modalEraseOfSend{
+
+.modalEraseOfSend {
     display: flex;
     justify-content: right;
     gap: 23px;
@@ -420,16 +504,19 @@ footer div{
 .modalEraseOfSend {
     margin-right: 22px;
 }
-.modalEraseOfSend button{
+
+.modalEraseOfSend button {
     padding: 6.5px 13.5px;
     border: 0 solid;
     border-radius: 8px;
 }
-#cancelOfErase{
+
+#cancelOfErase {
     background-color: #6C757D;
     color: #FFFFFF;
 }
-#saveOfErase{
+
+#saveOfErase {
     background-color: #DC3545;
     color: #FFFFFF;
 }

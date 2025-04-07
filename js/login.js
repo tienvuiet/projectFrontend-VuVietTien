@@ -4,11 +4,10 @@ let clickLogin = document.getElementById("clickLogin").onclick = function (event
     let passwordLogin = document.getElementById("passwordLogin").value;
 
     // Kiểm tra email và mật khẩu có đúng với tài khoản đã đăng ký trong localStorage
-    let registeredEmail = localStorage.getItem("userEmail");
-    let registeredPassword = localStorage.getItem("userPassword");
+    let storedUsers = JSON.parse(localStorage.getItem("users")) || []; // Lấy danh sách người dùng từ localStorage
 
-    // Kiểm tra nếu thông tin đăng nhập chưa được lưu trong LocalStorage
-    if (!registeredEmail || !registeredPassword) {
+    // Kiểm tra nếu danh sách người dùng chưa có gì
+    if (storedUsers.length === 0) {
         document.getElementById("gmailLoginErrorFail").style.display = "none"; // Ẩn thông báo sai email
         document.getElementById("passwordLoginFail").style.display = "none"; // Ẩn thông báo sai mật khẩu
     }
@@ -32,22 +31,27 @@ let clickLogin = document.getElementById("clickLogin").onclick = function (event
         document.getElementById("passwordLogin").style.border = "1px solid";
         document.getElementById("passwordLoginLeaveBlank").style.display = "none"; // Ẩn thông báo "mật khẩu không được bỏ trống"
     }
+
     // Kiểm tra nếu cả email và mật khẩu không trống mới thực hiện so sánh với dữ liệu trong localStorage
     if (emailLogin.trim() !== "" && passwordLogin.trim() !== "") {
-        // Kiểm tra nếu email và mật khẩu đúng, thực hiện đăng nhập
-        if (emailLogin === registeredEmail && passwordLogin === registeredPassword) {
+        // Kiểm tra nếu email và mật khẩu đúng
+        let validUser = storedUsers.find(user => user.email === emailLogin && user.password === passwordLogin);
+        
+        if (validUser) {
             window.location.href = "../pages/projectManagement.html"; // Đăng nhập thành công
-            
         } else {
-            if (emailLogin !== registeredEmail) {
-                document.getElementById("emailLogin").style.border = "2px solid red";
-                document.getElementById("gmailLoginErrorFail").style.display = "block"; // Hiển thị thông báo "sai gmail"
-                document.getElementById("gmailLoginErrorLeaveBlank").style.display = "none"; 
-            }
-            if (passwordLogin !== registeredPassword) {
-                document.getElementById("passwordLogin").style.border = "2px solid red";
-                document.getElementById("passwordLoginFail").style.display = "block";
-                document.getElementById("passwordLoginLeaveBlank").style.display = "none"; // Hiển thị thông báo "sai mật khẩu"
+            if (!validUser) {
+                // Kiểm tra nếu email hoặc mật khẩu sai
+                if (!storedUsers.find(user => user.email === emailLogin)) {
+                    document.getElementById("emailLogin").style.border = "2px solid red";
+                    document.getElementById("gmailLoginErrorFail").style.display = "block"; // Hiển thị thông báo "sai gmail"
+                    document.getElementById("gmailLoginErrorLeaveBlank").style.display = "none"; 
+                }
+                if (!storedUsers.find(user => user.password === passwordLogin)) {
+                    document.getElementById("passwordLogin").style.border = "2px solid red";
+                    document.getElementById("passwordLoginFail").style.display = "block";
+                    document.getElementById("passwordLoginLeaveBlank").style.display = "none"; // Hiển thị thông báo "sai mật khẩu"
+                }
             }
         }
     }
