@@ -1,13 +1,13 @@
- let users = [    
+let users = [    
     {
         id: 1,  // Gán ID mới cho người dùng
         fullName: `Vũ Việt Tiến`,
         email: `tienvuviet@gmail.com`,
         password: `allain19012006`,
-
     },
- ]
- document.querySelector(".formRegister").onsubmit = function (event) {
+];
+
+document.querySelector(".formRegister").onsubmit = function (event) {
     event.preventDefault(); // Ngừng hành động mặc định của form (submit)
 
     // Kiểm tra tên người dùng
@@ -93,7 +93,20 @@
         users.push(user);
         localStorage.setItem("users", JSON.stringify(users)); // Lưu lại danh sách người dùng
 
-        alert("Đăng ký thành công!");
-        window.location.href = "../pages/projectManagement.html"; // Điều hướng đến trang khác sau khi đăng ký thành công
+        // Lưu thông tin người dùng mới vào `currentUser` để đăng nhập
+        localStorage.setItem("currentUser", JSON.stringify(user));  // Lưu thông tin người dùng vào localStorage
+
+        // Hiển thị thông báo đăng ký thành công với Swal.fire
+        Swal.fire({
+            title: "Registered successfully!",
+            text: "Go to project management page!",
+            icon: "success",
+            draggable: true
+        }).then(() => {
+            // Thêm setTimeout để đảm bảo chuyển hướng xảy ra sau khi thông báo đã hiển thị
+            setTimeout(function () {
+                window.location.href = "../pages/projectManagement.html"; // Chuyển hướng đến trang projectManagement
+            }, 200); // Đợi 500ms trước khi chuyển hướng
+        });
     }
 };
