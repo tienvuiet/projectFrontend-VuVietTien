@@ -49,40 +49,99 @@ const projects = [
 let addProject = document.getElementById("addProject");
 let editingProjectId = null;
 // editingPeojectId biến để nhận biết mình thêm hay sửa 
+let currentPage = 1; // Trang hiện tại
+const projectsPerPage = 7; // Số lượng dự án mỗi trang
 
-
-
-// HIỂN THỊ CÁC DỰ ÁN
+// Hàm hiển thị các dự án theo trang
 function showProject() {
-  // Lấy thông tin người dùng đã đăng nhập từ localStorage
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  // if (!currentUser) {
-  //   window.location.href = "../pages/login.html"; // Nếu không có người dùng đăng nhập, chuyển hướng về trang login
-  //   return;
-  // }
-
   let currentUserId = currentUser.id;
 
-  addProject.innerHTML = "";
+  addProject.innerHTML = ""; // Xóa bảng hiện tại
 
-  // Lọc các dự án mà user hiện tại là owner
-  projects.forEach((cart, index) => {
-    if (cart.ownerId === currentUserId) {
-      let addCart = `
-              <tr>
-                  <td class="projectID">${cart.id}</td>
-                  <td>${cart.projectName}</td>
-                  <td class="act">
-                      <button class="clickFix">Sửa</button>
-                      <button class="clickErase">Xóa</button>
-                      <button class="detail">Chi tiết</button>
-                  </td>
-              </tr>
-          `;
-      addProject.innerHTML += addCart;
+  // Lọc các dự án mà người dùng hiện tại là chủ sở hữu
+  const userProjects = projects.filter(project => project.ownerId === currentUserId);
+
+  // Tính toán chỉ mục bắt đầu và kết thúc cho mỗi trang
+  const startIndex = (currentPage - 1) * projectsPerPage;
+  const endIndex = startIndex + projectsPerPage;
+
+  // Lấy các dự án trong phạm vi trang hiện tại
+  const projectsToDisplay = userProjects.slice(startIndex, endIndex);
+
+  // Hiển thị các dự án trong bảng
+  projectsToDisplay.forEach((project) => {
+    let addCart = `
+      <tr>
+        <td class="projectID">${project.id}</td>
+        <td>${project.projectName}</td>
+        <td class="act">
+          <button class="clickFix">Sửa</button>
+          <button class="clickErase">Xóa</button>
+          <button class="detail">Chi tiết</button>
+        </td>
+      </tr>
+    `;
+    addProject.innerHTML += addCart;
+  });
+
+  // Cập nhật các nút phân trang
+  updatePagination(userProjects.length);
+}
+
+// Cập nhật phân trang (hiển thị các nút điều hướng)
+function updatePagination(totalProjects) {
+  const totalPages = Math.ceil(totalProjects / projectsPerPage);
+  const pagination = document.querySelector('.transferList');
+  
+  pagination.innerHTML = ''; // Xóa phân trang hiện tại
+
+  // Nút Trang trước
+  const prevButton = document.createElement("button");
+  prevButton.innerHTML = "&#60;";
+  prevButton.id = "prevPage";
+  prevButton.disabled = currentPage === 1; // Disable button if we are on the first page
+  prevButton.addEventListener("click", function () {
+    if (currentPage > 1) {
+      currentPage--;
+      showProject();
     }
   });
+  pagination.appendChild(prevButton);
+
+  // Thêm các nút trang số
+  for (let i = 1; i <= totalPages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i;
+    if (i === currentPage) {
+      pageButton.classList.add("active"); // Đánh dấu trang hiện tại
+    }
+    pageButton.addEventListener("click", function () {
+      currentPage = i;
+      showProject();
+    });
+    pagination.appendChild(pageButton);
+  }
+
+  // Nút Trang sau
+  const nextButton = document.createElement("button");
+  nextButton.innerHTML = "&#62;";
+  nextButton.id = "nextPage";
+  nextButton.disabled = currentPage === totalPages; // Disable button if we are on the last page
+  nextButton.addEventListener("click", function () {
+    if (currentPage < totalPages) {
+      currentPage++;
+      showProject();
+    }
+  });
+  pagination.appendChild(nextButton);
 }
+
+
+// Gọi hàm để hiển thị các dự án ban đầu
+// showProject();
+
+
 
 
 // LƯU DỰ ÁN

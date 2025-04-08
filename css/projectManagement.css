@@ -249,17 +249,20 @@ table td button:nth-child(3) {
     font-weight: bold;
 }
 
-.transferList button:nth-child(5) {
+#nextPage {
     color: #212529;
     font-weight: 700;
 }
 
 .transferList button:nth-child(1) {
-    color: #676a6d;
+    color:#d1d2d4;
     font-weight: 700;
     background-color: #E9ECEF;
 }
-
+.transferList button:nth-child(1):hover {
+    background-color: #5d5e5f;
+    color: white;
+}
 footer {
     background-color: #212529;
     display: flex;
