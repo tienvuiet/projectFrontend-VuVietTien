@@ -11,7 +11,9 @@
 a {
     text-decoration: none;
 }
-
+.swal2-actions{
+    gap: 10px;
+}
 .none {
     min-height: 100vh;
     background-color: #f8f9fa;
@@ -573,6 +575,10 @@ footer div {
 
 }
 
+.add2 {
+    margin-left: 9px;
+}
+
 .add2 p {
     color: red;
     font-size: 10px;
@@ -581,7 +587,7 @@ footer div {
     margin-bottom: 0px;
     /* visibility: visible; */
     /* mặc định hiện */
-    /* visibility: hidden; */
+    visibility: hidden;
 
 }
 

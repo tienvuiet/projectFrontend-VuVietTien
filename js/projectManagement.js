@@ -3,13 +3,19 @@ const projects = [
     id: 1,
     projectName: 'Xây dựng website thương mại điện tử',
     ownerId: 1,
+    description: `Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
+                            toán
+                            và
+                            quản lý sản phẩm`,
     members: [
       {
         userId: 1,
+        email:  `annguyen@gmail.com`,
         role: "Project owner",
       },
       {
         userId: 2,
+        email: `bachnguyen@gmail.com`,
         role: "Frontend developer",
       },
     ]
@@ -18,13 +24,19 @@ const projects = [
     id: 2,
     projectName: 'Phát triển ứng dụng di động',
     ownerId: 1,
+    description: `Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
+                            toán
+                            và
+                            quản lý sản phẩm`,
     members: [
       {
         userId: 1,
+        email:  `annguyen@gmail.com`,
         role: "Project owner",
       },
       {
         userId: 2,
+        email:  `annguyen@gmail.com`,
         role: "Frontend developer",
       },
     ]
@@ -33,13 +45,19 @@ const projects = [
     id: 3,
     projectName: 'Phát triển ứng dụng di động',
     ownerId: 2,
+    description: `Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
+                            toán
+                            và
+                            quản lý sản phẩm`,
     members: [
       {
         userId: 1,
+        email:  `annguyen@gmail.com`,
         role: "Project owner",
       },
       {
         userId: 2,
+        email:  `annguyen@gmail.com`,
         role: "Frontend developer",
       },
     ]
@@ -54,6 +72,9 @@ const projectsPerPage = 7; // Số lượng dự án mỗi trang
 
 // Hàm hiển thị các dự án theo trang
 function showProject() {
+  // Lấy lại dữ liệu projects từ localStorage
+  let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   let currentUserId = currentUser.id;
 
@@ -89,11 +110,12 @@ function showProject() {
   updatePagination(userProjects.length);
 }
 
+
 // Cập nhật phân trang (hiển thị các nút điều hướng)
 function updatePagination(totalProjects) {
   const totalPages = Math.ceil(totalProjects / projectsPerPage);
   const pagination = document.querySelector('.transferList');
-  
+
   pagination.innerHTML = ''; // Xóa phân trang hiện tại
 
   // Nút Trang trước
@@ -244,6 +266,7 @@ document.getElementById("save").addEventListener("click", function (event) {
   editingProjectId = null;
 });
 
+
 showProject();
 
 
@@ -291,7 +314,7 @@ document.getElementById("projectSearch").addEventListener("input", function () {
   // }
 
   let currentUserId = currentUser.id;
-  
+
   addProject.innerHTML = ""; // Xóa nội dung cũ trong bảng
 
   // Lọc các dự án mà người dùng hiện tại là chủ sở hữu và tên dự án khớp với từ khóa tìm kiếm
@@ -362,27 +385,33 @@ addProject.addEventListener("click", function (event) {
   if (event.target && event.target.classList.contains("detail")) {
     event.preventDefault();
 
-    // Hiển thị thông báo xác nhận
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, confirm !"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Nếu người dùng xác nhận
-        Swal.fire({
-          title: "Successed!",
-          text: "Your have been redirected to the detail page.",
-          icon: "success"
-        }).then(() => {
-          window.location.href = "../pages/projectDetaile.html";
-        });
-      }
-    });
+    let row = event.target.closest('tr');
+    let projectId = parseInt(row.querySelector('.projectID').innerText);
+
+    // Tìm dự án cần xem chi tiết từ localStorage
+    let projects = JSON.parse(localStorage.getItem("projects")) || [];
+    const project = projects.find(p => p.id === projectId);
+
+    if (project) {
+      // Lưu thông tin dự án vào localStorage với tên 'projectManagement'
+      localStorage.setItem("projectManagement", JSON.stringify({
+        id: project.id,
+        projectName: project.projectName,
+        description: project.description,
+        ownerId: project.ownerId,
+        members: project.members
+      }));
+
+      // Hiển thị thông báo xác nhận
+      Swal.fire({
+        title: "Successed!",
+        text: "You have been redirected to the detail page.",
+        icon: "success"
+      }).then(() => {
+        // Chuyển hướng đến trang chi tiết dự án
+        window.location.href = "../pages/projectDetaile.html";
+      });
+    }
   }
 });
 
@@ -424,7 +453,8 @@ document.getElementById("cancel").addEventListener("click", function (event) {
 
 
 
-// PHÂN TRANG DỰ ÁN THEO DỮ LIỆU
+// LẤY DỮ LIỆU TỪ TRANG QUẢN LÝ DỰ ÁN
+
 
 
 

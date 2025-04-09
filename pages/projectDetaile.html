@@ -25,7 +25,7 @@
                 <div class="navEvent2">
                     <a href="">Dự án</a>
                     <a href="">Nhiệm vụ của tôi</a>
-                    <a href="">Đăng xuất</a>
+                    <a href="../pages/login.html" id="logOut">Đăng xuất</a>
                 </div>
             </div>
         </nav>
@@ -33,11 +33,11 @@
             <main class="main1">
                 <div class="left">
                     <div class="left2">
-                        <h2>Xây dựng wedsite thương mại điện tử</h2>
+                        <!-- <h2>Xây dựng wedsite thương mại điện tử</h2>
                         <p>Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
                             toán
                             và
-                            quản lý sản phẩm</p>
+                            quản lý sản phẩm</p> -->
                     </div>
                     <button id="addMission">+Thêm nhiệm vụ</button>
                 </div>
@@ -48,9 +48,9 @@
                             <button id="addMember">+ Thêm thành viên</button>
                         </div>
                         <div class="member2">
-                            <div class="user">
+                            <!-- <div class="user">
                                 <div class="user1">
-                                    <p>AN</p>
+                                    <p>An</p>
                                 </div>
                                 <div class="position">
                                     <p>An Nguyễn</p>
@@ -59,13 +59,13 @@
                             </div>
                             <div class="user">
                                 <div class="user1">
-                                    <p>AN</p>
+                                    <p>Ba</p>
                                 </div>
                                 <div class="position">
                                     <p>An Nguyễn</p>
                                     <p>Project owner</p>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="moreUser" id="showMember">
                                 <b>...</b>
                             </div>
@@ -189,39 +189,39 @@
             </div>
             <div class="task2">
                 <label for="">Tên nhiệm vụ</label>
-                <input type="text">
-                <p>Tên nhiệm vụ đã tồn tại</p>
+                <input type="text" id="updateTask">
+                <p id="updateTaskFail">Tên nhiệm vụ đã tồn tại</p>
                 <label for="">Người phụ trách</label>
-                <select name="" id="">
+                <select name="" id="inputPersonInCharge">
                     <option value="">Chọn người phụ trách</option>
-                    <option value="">An Nguyễn</option>
-                    <option value="">Bách Nguyễn</option>
+                    <option value="An Nguyễn">An Nguyễn</option>
+                    <option value="Bách Nguyễn">Bách Nguyễn</option>
                 </select>
                 <label for="">Trạng thái</label>
-                <select name="" id="">
+                <select name="" id="inputStatus">
                     <option value="">Chọn trạng thái nhiệm vụ</option>
-                    <option value="">To do</option>
-                    <option value="">In Progress</option>
-                    <option value="">Pending</option>
-                    <option value="">Done</option>
+                    <option value="To do">To do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Done">Done</option>
                 </select>
                 <label for="">Ngày bắt đầu</label>
-                <input type="date">
+                <input type="date" id="inputAssignDate">
                 <label for="">Hạn cuối</label>
-                <input type="date">
+                <input type="date" id="inputDueDate">
                 <label for="">Độ ưu tiên</label>
-                <select>
+                <select id="inputPriority">
                     <option value="">Chọn độ ưu tiên</option>
-                    <option value="">Thấp</option>
-                    <option value="">Trung bình</option>
-                    <option value="">Cao</option>
+                    <option value="Thấp">Thấp</option>
+                    <option value="Trung bình">Trung bình</option>
+                    <option value="Cao">Cao</option>
                 </select>
                 <label for="">Tiến độ</label>
-                <select>
+                <select id="inputProgress">
                     <option value="">Chọn tiến độ</option>
-                    <option value="">Đúng tiến độ</option>
-                    <option value="">Có rủi ro</option>
-                    <option value="">Trễ hạn</option>
+                    <option value="Đúng tiến độ">Đúng tiến độ</option>
+                    <option value="Có rủi ro">Có rủi ro</option>
+                    <option value="Trễ hạn">Trễ hạn</option>
                 </select>
             </div>
             <div class="task3">
@@ -240,11 +240,11 @@
             </div>
             <div class="add2">
                 <label for="">Email</label>
-                <input type="email">
-                <p>Thành viên đã tồn tại</p>
+                <input type="email" id="emailMember">
+                <p id="emailMemberFail">Thành viên đã tồn tại</p>
                 <div class="add22">
                     <label for="">Vai trò</label>
-                    <input type="text">
+                    <input type="text" id="role">
                 </div>
             </div>
             <div class="add3">
@@ -306,7 +306,7 @@
                     </div>
                 </div>
             </div>
-            <div class="show4">   
+            <div class="show4">
                 <button id="closeShow4">Đóng</button>
                 <button id="saveShow4">Lưu</button>
             </div>
@@ -316,6 +316,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
