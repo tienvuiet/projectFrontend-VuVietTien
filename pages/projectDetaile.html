@@ -48,24 +48,26 @@
                             <button id="addMember">+ Thêm thành viên</button>
                         </div>
                         <div class="member2">
-                            <!-- <div class="user">
-                                <div class="user1">
-                                    <p>An</p>
+                            <div class="memberTable2">
+                                <!-- <div class="user">
+                                    <div class="user1">
+                                        <p>An</p>
+                                    </div>
+                                    <div class="position">
+                                        <p>An Nguyễn</p>
+                                        <p>Project owner</p>
+                                    </div>
                                 </div>
-                                <div class="position">
-                                    <p>An Nguyễn</p>
-                                    <p>Project owner</p>
-                                </div>
+                                <div class="user">
+                                    <div class="user1">
+                                        <p>Ba</p>
+                                    </div>
+                                    <div class="position">
+                                        <p>An Nguyễn</p>
+                                        <p>Project owner</p>
+                                    </div>
+                                </div> -->
                             </div>
-                            <div class="user">
-                                <div class="user1">
-                                    <p>Ba</p>
-                                </div>
-                                <div class="position">
-                                    <p>An Nguyễn</p>
-                                    <p>Project owner</p>
-                                </div>
-                            </div> -->
                             <div class="moreUser" id="showMember">
                                 <b>...</b>
                             </div>
@@ -98,7 +100,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">▼ To do</td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">
+                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
+                                </div> To do
+                            </td>
                         </tr>
                         <tr class="todo-section">
                             <td>Soạn thảo đề cương dự án</td>
@@ -138,7 +143,9 @@
                         </tr>
 
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">▼ In Progress
+                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">
+                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
+                                </div> In Progress
                             </td>
                         </tr>
                         <tr class="inProgress-section">
@@ -155,14 +162,19 @@
                         </tr>
 
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">▶ Pending</td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">
+                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
+                                </div> Pending</td>
                         </tr>
                         <tr class="pending-section">
                             <td colspan="7">Chưa có nhiệm vụ</td>
                         </tr>
 
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('done')">▶ Done</td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('done')">
+                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
+                                </div>
+                                Done</td>
                         </tr>
                         <tr class="done-section">
                             <td colspan="7">Chưa có nhiệm vụ</td>
@@ -194,8 +206,8 @@
                 <label for="">Người phụ trách</label>
                 <select name="" id="inputPersonInCharge">
                     <option value="">Chọn người phụ trách</option>
-                    <option value="An Nguyễn">An Nguyễn</option>
-                    <option value="Bách Nguyễn">Bách Nguyễn</option>
+                    <!-- <option value="An Nguyễn">An Nguyễn</option>
+                    <option value="Bách Nguyễn">Bách Nguyễn</option> -->
                 </select>
                 <label for="">Trạng thái</label>
                 <select name="" id="inputStatus">
@@ -242,9 +254,11 @@
                 <label for="">Email</label>
                 <input type="email" id="emailMember">
                 <p id="emailMemberFail">Thành viên đã tồn tại</p>
+                <p id="emailFail">Không được bỏ trống && phải có từ 10 đến 50 kí tự</p>
                 <div class="add22">
                     <label for="">Vai trò</label>
                     <input type="text" id="role">
+                    <p id="roleFail">Không được bỏ trống && có từ 10 đến 50 kí tự</p>
                 </div>
             </div>
             <div class="add3">
@@ -266,7 +280,8 @@
                 <p>Vai trò</p>
             </div>
             <div class="show30">
-                <div class="show3">
+
+                <!-- <div class="show3">
                     <div class="show31">
                         <div id="avartaShow31">AN</div>
                         <div>
@@ -276,7 +291,7 @@
                     </div>
                     <div class="show32">
                         <div class="role">Project owner</div>
-                        <img class="garbageShow32" src="../assets/Trash.png" alt="">
+                        <img class="garbageShow32" src="../assets/Trash.png" alt="" id = "deleteMember">
                     </div>
                 </div>
                 <div class="show3">
@@ -289,22 +304,9 @@
                     </div>
                     <div class="show32">
                         <div class="role">Project owner</div>
-                        <img class="garbageShow32" src="../assets/Trash.png" alt="">
+                        <img class="garbageShow32" src="../assets/Trash.png" alt="" id = "deleteMember">
                     </div>
-                </div>
-                <div class="show3">
-                    <div class="show31">
-                        <div id="avartaShow31">AN</div>
-                        <div>
-                            <p class="nameShow31">An Nguyễn</p>
-                            <p class="emailShow31">nguyenquangan@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="show32">
-                        <div class="role">Project owner</div>
-                        <img class="garbageShow32" src="../assets/Trash.png" alt="">
-                    </div>
-                </div>
+                </div> -->
             </div>
             <div class="show4">
                 <button id="closeShow4">Đóng</button>

@@ -8,16 +8,16 @@ const projects = [
                             và
                             quản lý sản phẩm`,
     members: [
-      {
-        userId: 1,
-        email:  `annguyen@gmail.com`,
-        role: "Project owner",
-      },
-      {
-        userId: 2,
-        email: `bachnguyen@gmail.com`,
-        role: "Frontend developer",
-      },
+      // {
+      //   userId: 1,
+      //   email:  `annguyen@gmail.com`,
+      //   role: "Project owner",
+      // },
+      // {
+      //   userId: 2,
+      //   email: `bachnguyen@gmail.com`,
+      //   role: "Frontend developer",
+      // },
     ]
   },
   {
@@ -393,6 +393,8 @@ addProject.addEventListener("click", function (event) {
     const project = projects.find(p => p.id === projectId);
 
     if (project) {
+      console.log(project);
+      
       // Lưu thông tin dự án vào localStorage với tên 'projectManagement'
       localStorage.setItem("projectManagement", JSON.stringify({
         id: project.id,
