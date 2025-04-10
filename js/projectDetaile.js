@@ -41,17 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
 // THÊM THÀNH VIÊN
 document.getElementById("add3Save").addEventListener("click", function (event) {
     event.preventDefault(); // Ngừng hành động mặc định của sự kiện (ngừng việc gửi form)
-    
+
     // Lấy dữ liệu dự án từ localStorage, nếu không có thì khởi tạo mảng members
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-    
+    // let projects = JSON.parse(localStorage.getItem("projects"));
     // Lấy giá trị từ các trường trong form
     let newEmail = document.getElementById("emailMember").value.trim(); // Lấy giá trị email từ trường input có id "emailMember"
     let newRole = document.getElementById("role").value.trim(); // Lấy giá trị vai trò từ trường input có id "role"
     let emailMemberFail = document.getElementById("emailMemberFail");
     let emailFail = document.getElementById("emailFail");
     let roleFail = document.getElementById("roleFail");
-    
+
     // Kiểm tra email trống và độ dài
     if (newEmail === "") {
         emailFail.style.visibility = "visible";
@@ -106,15 +106,15 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
 
     // Thêm thành viên mới vào mảng members của dự án
     projectManagement.members.push(newMember);
-
+    // projects.members.push(newMember);
     // Cập nhật lại thông tin dự án trong localStorage
     localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
-    
+
     // Reset form: ẩn modal và làm sạch giá trị trong form
     document.querySelector(".addMember").style.display = "none"; // Đóng modal
     document.getElementById("emailMember").value = ""; // Reset giá trị email
     document.getElementById("role").value = ""; // Reset giá trị role
-    avatarMember();  
+    avatarMember();
 });
 document.getElementById("addMember").addEventListener("click", function (event) {
     event.preventDefault();
@@ -122,6 +122,8 @@ document.getElementById("addMember").addEventListener("click", function (event) 
     let modalErase = document.querySelector(".addMember");
     modalErase.style.display = "flex";
 });
+
+// NÚT HỦY KHI THÊM THÀNH VIÊN
 document.getElementById("add3Cancel").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -131,12 +133,12 @@ document.getElementById("add3Cancel").addEventListener("click", function (event)
     // Reset tất cả các ô input về mặc định
     document.getElementById("emailMember").value = ""; // Reset trường email
     document.getElementById("role").value = ""; // Reset trường vai trò
-    
+
     // Ẩn các thông báo lỗi nếu có
     document.getElementById("emailMemberFail").style.visibility = "hidden";
     document.getElementById("emailFail").style.visibility = "hidden";
     document.getElementById("roleFail").style.visibility = "hidden";
-    
+
     // Đặt lại border của các ô input
     document.getElementById("emailMember").style.border = "";
     document.getElementById("role").style.border = "";
@@ -151,8 +153,11 @@ document.getElementById("outAdd1").addEventListener("click", function (event) {
 
 
 
+
+
+
 // SHOW THÀNH VIÊN
-document.getElementById("showMember").addEventListener("click", function(event) {
+document.getElementById("showMember").addEventListener("click", function (event) {
     event.preventDefault();
     let showTableMemberElement = document.querySelector(".showMember");
 
@@ -181,6 +186,9 @@ document.getElementById("saveShow4").addEventListener("click", function (event) 
 
 
 
+
+
+
 // HIỂN THỊ THÀNH VIÊN TRONG BẢNG
 function showTableMember() {
     let tableMember = document.querySelector(".show30");
@@ -188,7 +196,7 @@ function showTableMember() {
     // Lấy dữ liệu từ localStorage
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
     // Lặp qua mảng members và hiển thị thông tin
-    
+
     projectManagement.members.forEach((member) => {
         let avartaName = member.email.split('@')[0]; // Lấy phần trước dấu '@' trong email
         let avarta = member.email.slice(0, 2).toUpperCase(); // Lấy 2 ký tự đầu làm avatar
@@ -220,14 +228,14 @@ function avatarMember() {
 
     // Kiểm tra sự tồn tại của projectManagement trong localStorage
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-    
+
     if (!projectManagement || !projectManagement.members || projectManagement.members.length === 0) {
         addAvartarMember.style.display = "none"; // Ẩn phần tử nếu không có thành viên
         return;
     }
     let membersToShow = projectManagement.members.slice(0, 2);
 
-    addAvartarMember.style.display = "flex"; 
+    addAvartarMember.style.display = "flex";
 
     // Lặp qua các thành viên để hiển thị
     membersToShow.forEach((member) => {
@@ -253,28 +261,31 @@ avatarMember()
 
 
 
+
+
+
 // HÀM XÓA THÀNH VIÊN
-document.querySelector(".show30").addEventListener("click", function(event) {
+document.querySelector(".show30").addEventListener("click", function (event) {
     if (event.target && event.target.classList.contains("garbageShow32")) {
         // Lấy email của thành viên cần xóa
-       
+
         let memberEmail = event.target.closest('.show3').querySelector('.emailShow31').innerText;
 
         // Lấy dữ liệu từ localStorage
         let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-        
+
         // Lọc ra thành viên cần xóa khỏi mảng
         let updatedMembers = projectManagement.members.filter(member => member.email !== memberEmail);
-        
+
         // Cập nhật lại mảng members trong projectManagement
         projectManagement.members = updatedMembers;
-        
+
         // Lưu lại dữ liệu mới vào localStorage
         localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
 
         // Gọi lại hàm hiển thị thành viên
         showTableMember(); // Cập nhật lại bảng thành viên
-        avatarMember();  
+        avatarMember();
     }
 });
 
@@ -295,7 +306,7 @@ function toggleSection(section) {
         sectionElement.style.display = "table-row"; // Hiển thị phần mục
         openIcon.style.visibility = "visible"; // Hiển thị biểu tượng mở
         closeIcon.style.visibility = "hidden";  // Ẩn biểu tượng đóng
-        
+
     } else {
         sectionElement.style.display = "none"; // Ẩn phần mục
         openIcon.style.visibility = "hidden";  // Ẩn biểu tượng mở
@@ -307,7 +318,7 @@ function toggleSection(section) {
 
 
 
-// THÊM SỬA NHIỆM VỤ
+// NÚT BẤM THÊM SỬA NHIỆM VỤ
 document.getElementById("addMission").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -322,42 +333,60 @@ document.querySelectorAll(".editMission").forEach(function (editButton) {
     });
 });
 
-// LƯU NHIỆM VỤ
-// Lấy thông tin projectManagement từ localStorage
-const projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
 
+
+
+
+
+
+
+
+
+
+
+
+// LƯU NHIỆM VỤ
+const projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
 if (projectManagement && projectManagement.members) {
-    // Tạo các lựa chọn trong dropdown từ projectManagement.members
+    // Lấy phần tử <select> để thêm các lựa chọn
     const selectElement = document.getElementById("inputPersonInCharge");
 
+    // Duyệt qua các thành viên và tạo các option tương ứng
     projectManagement.members.forEach(member => {
         const option = document.createElement("option");
-        option.value = member.name; // Tên người phụ trách
-        option.textContent = member.name; // Hiển thị tên người phụ trách
-        selectElement.appendChild(option);
+        let avartaName = member.email.split('@')[0];
+
+        option.value = avartaName; // Giá trị của option là tên thành viên
+        option.textContent = avartaName; // Nội dung của option là tên thành viên
+        selectElement.appendChild(option); // Thêm option vào <select>
     });
-} else {
-    console.error("Không tìm thấy thông tin projectManagement hoặc danh sách thành viên trong localStorage.");
 }
 
-// Lắng nghe sự kiện khi nhấn nút Lưu
+// SỰ KIỆN LƯU
 document.getElementById("task3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
     // Lấy giá trị từ các trường trong form
+    const updateTaskFail = document.getElementById("updateTaskFail");
     const taskName = document.getElementById("updateTask").value;
-    const personInCharge = document.getElementById("inputPersonInCharge").value;
+    const personInCharge = document.getElementById("inputPersonInCharge").value + "@gmail.com";
     const status = document.getElementById("inputStatus").value;
     const assignDate = document.getElementById("inputAssignDate").value;
     const dueDate = document.getElementById("inputDueDate").value;
     const priority = document.getElementById("inputPriority").value;
     const progress = document.getElementById("inputProgress").value;
 
-    // Lấy thông tin projectManagement từ localStorage
+    // Kiểm tra nếu có trường dữ liệu thiếu
+    if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
+        updateTaskFail.style.visibility = "visible"; // Hiển thị thông báo lỗi nếu có trường dữ liệu thiếu
+        return; // Dừng thực thi nếu có trường dữ liệu bị bỏ trống
+    }
+
+    // Kiểm tra nếu taskName bị trùng
     const members = projectManagement.members || [];
 
     // Tìm userId của người phụ trách từ members
-    const assignee = members.find(member => member.name === personInCharge);
+    const assignee = members.find(member => member.email === personInCharge);
     if (!assignee) {
         console.error("Không tìm thấy người phụ trách trong danh sách thành viên.");
         return;
@@ -367,11 +396,25 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     // Lấy projectId từ projectManagement.id
     const projectId = projectManagement.id;
 
-    // Lấy taskId từ localStorage và tự động tăng lên
-    let taskId = parseInt(localStorage.getItem("taskId") || "0") + 1;  // Nếu chưa có taskId thì bắt đầu từ 1
+    // Lấy danh sách nhiệm vụ hiện tại từ localStorage (hoặc tạo mảng trống nếu chưa có)
+    let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Nếu chưa có nhiệm vụ nào, gán taskId = 0, nếu có thì lấy taskId từ localStorage
+    let taskId = tasksMission.length === 0 ? 0 : parseInt(localStorage.getItem("taskId") || "0");
+
+    // Tăng taskId lên 1 sau khi tạo nhiệm vụ mới
+    taskId += 1;
 
     // Lưu taskId mới vào localStorage để tăng cho lần tiếp theo
     localStorage.setItem("taskId", taskId);
+
+    // Kiểm tra trùng lặp nhiệm vụ
+    let taskExists = tasksMission.some(task => task.taskName === taskName); // Kiểm tra nếu nhiệm vụ đã tồn tại
+    if (taskExists) {
+        updateTaskFail.style.visibility = "visible"; // Hiển thị thông báo lỗi nếu tên nhiệm vụ đã tồn tại
+        document.getElementById("updateTask").style.border = "1px solid red"; // Thêm border đỏ vào input taskName
+        return;
+    }
 
     // Tạo đối tượng nhiệm vụ
     const task = {
@@ -386,21 +429,32 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
         status: status,
     };
 
-    // Lấy danh sách nhiệm vụ hiện tại từ localStorage
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
     // Thêm nhiệm vụ mới vào danh sách
-    tasks.push(task);
+    tasksMission.push(task);
 
     // Lưu lại vào localStorage
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasksMission));
+
+    // Log dữ liệu đã lưu vào localStorage
+    console.log("Dữ liệu nhiệm vụ đã lưu:", task);
 
     // Đóng modal
     let modalErase = document.querySelector(".add-editTask");
     modalErase.style.display = "none";
+
+    // Ẩn thông báo lỗi và làm lại các thay đổi
+    updateTaskFail.style.visibility = "hidden";
+    document.getElementById("updateTask").style.border = ""; // Xóa border đỏ khi hoàn thành
+
+    // Reset tất cả các trường input về giá trị mặc định
+    document.getElementById("updateTask").value = "";
+    document.getElementById("inputPersonInCharge").value = "";
+    document.getElementById("inputStatus").value = "";
+    document.getElementById("inputAssignDate").value = "";
+    document.getElementById("inputDueDate").value = "";
+    document.getElementById("inputPriority").value = "";
+    document.getElementById("inputProgress").value = "";
 });
-
-
 
 document.getElementById("outAddEdit").addEventListener("click", function (event) {
     event.preventDefault();
@@ -420,6 +474,30 @@ document.getElementById("task3Cancel").addEventListener("click", function (event
 
 
 
+// ĐỔ NHIỆM VỤ VÀO BẢNG
+function showTasksInTable(){
+    let tableTask = document.querySelector(".showTasksInTable");
+    tableTask.innerHTML = ""; // Xóa bảng cũ
+
+    // Lấy dữ liệu nhiệm vụ từ localStorage
+    let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Lặp qua mảng nhiệm vụ và hiển thị thông tin
+    tasksMission.forEach((task) => {
+        let taskRow = `
+            <div class="showTaskTable1">
+                <div class="showTaskTable11">${task.taskName}</div>
+                <div class="showTaskTable12">${task.assigneeId}</div>
+                <div class="showTaskTable13">${task.assignDate}</div>
+                <div class="showTaskTable14">${task.dueDate}</div>
+                <div class="showTaskTable15">${task.priority}</div>
+                <div class="showTaskTable16">${task.progress}</div>
+                <div class="showTaskTable17">${task.status}</div>
+            </div>
+        `;
+        tableTask.innerHTML += taskRow; // Thêm nhiệm vụ vào bảng
+    });
+}
 
 
 
@@ -471,3 +549,11 @@ document.getElementById("logOut").addEventListener("click", function (event) {
         }
     });
 });
+
+
+
+
+
+
+
+

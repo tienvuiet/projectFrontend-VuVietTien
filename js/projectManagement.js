@@ -389,6 +389,7 @@ addProject.addEventListener("click", function (event) {
     let projectId = parseInt(row.querySelector('.projectID').innerText);
 
     // Tìm dự án cần xem chi tiết từ localStorage
+    let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
     let projects = JSON.parse(localStorage.getItem("projects")) || [];
     const project = projects.find(p => p.id === projectId);
 
@@ -401,7 +402,7 @@ addProject.addEventListener("click", function (event) {
         projectName: project.projectName,
         description: project.description,
         ownerId: project.ownerId,
-        members: project.members
+        members: projectManagement.members
       }));
 
       // Hiển thị thông báo xác nhận
