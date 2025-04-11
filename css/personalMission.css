@@ -1,0 +1,270 @@
+body {
+  background-color: rgb(244, 244, 244);
+  font-family: Arial, sans-serif;
+}
+
+#nav {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(33, 37, 41);
+  color: rgb(255, 255, 255);
+  padding: 30px 0px;
+  height: 40px;
+}
+
+.navEvent {
+  width: 1320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0px;
+}
+
+.navEvent p {
+  font-size: 19.74px;
+  padding-top: 2px;
+  color: white;
+}
+
+.navEvent2 {
+  display: flex;
+  padding: 16px 0px;
+  gap: 16.32px;
+}
+
+.navEvent2 {
+  margin-top: -14px;
+}
+
+.navEvent2 a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 14.25px;
+  transition: transform 0.3s;
+}
+
+.navEvent2 a:hover {
+  transform: scale(1.1);
+}
+
+footer {
+  background-color: rgb(33, 37, 41);
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+}
+
+footer div {
+  color: rgb(255, 255, 255);
+  font-size: 16.02px;
+  padding: 16px 0px;
+}
+
+main {
+  padding: 40px 20px;
+}
+
+.table-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+h2 {
+  font-size: 25.47px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.h20 {
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+}
+
+.h21 {
+  width: 1296px;
+}
+
+.function {
+  display: flex;
+  justify-content: center;
+  width: 1920px;
+  text-align: right;
+  padding-bottom: 16px;
+}
+
+.function1 {
+  width: 1296px;
+}
+
+.function1 input {
+  margin-left: 8px;
+  padding: 4px 15px;
+  border-radius: 6px;
+  border: 0.5px solid rgb(222, 226, 230);
+}
+
+.function1 select {
+  padding: 7px 15px;
+  border-radius: 6px;
+  border: 0.5px solid rgb(222, 226, 230);
+}
+
+
+
+.total2 {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 1920px;
+  margin-bottom: 24px;
+}
+.section-title{
+  display: flex;
+}
+.openClose{
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 2px;
+  left: -4px;
+  visibility : hidden;
+}
+
+.main2 {
+  width: 1296px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  padding: 19px 17px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+#section2Title {
+  font-size: 19.72px;
+  font-weight: 500;
+}
+
+.table {
+  width: 1261px;
+}
+
+.table th {
+  font-size: 15.36px;
+  text-align: center;
+  background-color: #F8F9FA;
+  padding: 8.5px 0;
+}
+
+/* Style cho tất cả các <td> từ thứ 2 trở đi */
+.todo-section td:nth-child(n+2) {
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.todo-section td:nth-child(4),
+.todo-section td:nth-child(5) {
+  color: #0D6EFD;
+}
+
+.inProgress-section td:nth-child(n+2) {
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.inProgress-section td:nth-child(4),
+.inProgress-section td:nth-child(5) {
+  color: #0D6EFD;
+}
+
+.pending-section td:nth-child(n+2) {
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.pending-section td:nth-child(4),
+.pending-section td:nth-child(5) {
+  color: #0D6EFD;
+}
+
+.done-section td:nth-child(4),
+.done-section td:nth-child(5) {
+  color: #0D6EFD;
+}
+
+.done-section td:nth-child(n+2) {
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.table button {
+  border: 0 solid;
+  border-radius: 6px;
+  padding: 5px 9px;
+}
+
+#short {
+  background-color: #0DCAF0;
+  padding: 3px 9px;
+  border-radius: 6px;
+  color: white;
+  font-size: 11.12px;
+  font-weight: 600;
+}
+
+#onSchedule {
+  background-color: #198754;
+  padding: 2.32px 8px;
+  border-radius: 6px;
+  color: white;
+  font-size: 11.12px;
+  font-weight: 600;
+}
+
+.editMission {
+  color: #000000;
+  font-weight: 300;
+  background-color: #FFC107;
+}
+
+.deleteMission {
+  color: #faf6f6;
+  font-weight: 300;
+  background-color: #DC3545;
+}
+
+.main2 {
+  width: 1296px;
+  background-color: #FFFFFF;
+  border-radius: 7px;
+  padding: 19px 17px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  /* Bóng nổi */
+}
+
+.table button {
+  border: 0 solid;
+  border-radius: 6px;
+  padding: 5px 9px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Bóng nổi cho nút */
+  transition: box-shadow 0.3s ease-in-out;
+  /* Thêm hiệu ứng chuyển động */
+}
+
+.table button:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+

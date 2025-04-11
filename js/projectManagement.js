@@ -44,7 +44,7 @@ const projects = [
   {
     id: 3,
     projectName: 'Phát triển ứng dụng di động',
-    ownerId: 2,
+    ownerId: 1,
     description: `Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
                             toán
                             và
@@ -417,6 +417,17 @@ addProject.addEventListener("click", function (event) {
     }
   }
 });
+
+
+
+
+
+// CHUYỂN HƯỚNG SANG TRANG NHIỆM VỤ CỦA TÔI 
+document.getElementById("personalTaskPage").addEventListener("click", function(event){
+    event.preventDefault();
+    window.location.href = "../pages/personalMission.html";
+})
+
 
 
 

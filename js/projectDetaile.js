@@ -38,41 +38,66 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // THÊM THÀNH VIÊN
+// THÊM THÀNH VIÊN
 document.getElementById("add3Save").addEventListener("click", function (event) {
-    event.preventDefault(); // Ngừng hành động mặc định của sự kiện (ngừng việc gửi form)
+    event.preventDefault();
 
-    // Lấy dữ liệu dự án từ localStorage, nếu không có thì khởi tạo mảng members
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-    // let projects = JSON.parse(localStorage.getItem("projects"));
-    // Lấy giá trị từ các trường trong form
-    let newEmail = document.getElementById("emailMember").value.trim(); // Lấy giá trị email từ trường input có id "emailMember"
-    let newRole = document.getElementById("role").value.trim(); // Lấy giá trị vai trò từ trường input có id "role"
+    let newEmail = document.getElementById("emailMember").value.trim();
+    let newRole = document.getElementById("role").value.trim();
+
     let emailMemberFail = document.getElementById("emailMemberFail");
     let emailFail = document.getElementById("emailFail");
     let roleFail = document.getElementById("roleFail");
 
-    // Kiểm tra email trống và độ dài
+    // Kiểm tra email trống
     if (newEmail === "") {
         emailFail.style.visibility = "visible";
         document.getElementById("emailMember").style.border = "1px solid red";
-        return; // Dừng lại không thực hiện thêm thành viên
-    } else if (newEmail.length < 10 || newEmail.length > 50) {
+        document.querySelector(".addMember").style.display = "flex";
+        return;
+    }
+
+    // Kiểm tra độ dài email
+    if (newEmail.length < 10 || newEmail.length > 50) {
         emailFail.style.visibility = "visible";
         document.getElementById("emailMember").style.border = "1px solid red";
+        document.querySelector(".addMember").style.display = "flex";
         return;
     } else {
         emailFail.style.visibility = "hidden";
         document.getElementById("emailMember").style.border = "";
+
+        // ✅ Kiểm tra định dạng @gmail.com
+        if (!newEmail.endsWith("@gmail.com")) {
+            document.querySelector(".addMember").style.display = "none"; // Ẩn modal trước khi báo lỗi
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Email must be in @gmail.com format!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            }).then(() => {
+                document.querySelector(".addMember").style.display = "flex"; // Mở lại sau alert
+            });
+
+            document.getElementById("emailMember").style.border = "1px solid red";
+            return;
+        }
     }
 
-    // Kiểm tra vai trò trống và độ dài
+    // Kiểm tra role trống
     if (newRole === "") {
         roleFail.style.visibility = "visible";
         document.getElementById("role").style.border = "1px solid red";
-        return; // Dừng lại không thực hiện thêm thành viên
-    } else if (newRole.length < 10 || newRole.length > 50) {
+        document.querySelector(".addMember").style.display = "flex";
+        return;
+    }
+
+    // Kiểm tra độ dài role
+    if (newRole.length < 10 || newRole.length > 50) {
         roleFail.style.visibility = "visible";
         document.getElementById("role").style.border = "1px solid red";
+        document.querySelector(".addMember").style.display = "flex";
         return;
     } else {
         roleFail.style.visibility = "hidden";
@@ -85,42 +110,45 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
     );
 
     if (duplicateEmail) {
-        emailMemberFail.style.visibility = "visible"; // Hiển thị thông báo lỗi nếu email trùng
-        document.getElementById("emailMember").style.border = "1px solid red"; // Đổi màu border trường email
-        return; // Dừng lại không thực hiện thêm thành viên
+        emailMemberFail.style.visibility = "visible";
+        document.getElementById("emailMember").style.border = "1px solid red";
+        document.querySelector(".addMember").style.display = "flex";
+        return;
     } else {
-        emailMemberFail.style.visibility = "hidden"; // Ẩn thông báo lỗi nếu email hợp lệ
-        document.getElementById("emailMember").style.border = ""; // Đặt lại border của trường email
+        emailMemberFail.style.visibility = "hidden";
+        document.getElementById("emailMember").style.border = "";
     }
 
-    // Tự động tăng userId dựa trên số lượng thành viên hiện tại
+    // Tạo userId mới
     let newUserId = projectManagement.members.length + 1;
 
-    // Tạo đối tượng thành viên mới
     let newMember = {
-        userId: newUserId, // Gán userId cho thành viên mới
-        email: newEmail,   // Gán email cho thành viên mới
-        role: newRole      // Gán vai trò cho thành viên mới
+        userId: newUserId,
+        email: newEmail,
+        role: newRole
     };
 
-    // Thêm thành viên mới vào mảng members của dự án
     projectManagement.members.push(newMember);
-    // projects.members.push(newMember);
-    // Cập nhật lại thông tin dự án trong localStorage
     localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
 
-    // Reset form: ẩn modal và làm sạch giá trị trong form
-    document.querySelector(".addMember").style.display = "none"; // Đóng modal
-    document.getElementById("emailMember").value = ""; // Reset giá trị email
-    document.getElementById("role").value = ""; // Reset giá trị role
-    avatarMember();
+    // Reset form
+    document.querySelector(".addMember").style.display = "none";
+    document.getElementById("emailMember").value = "";
+    document.getElementById("role").value = "";
+
+    avatarMember(); // Cập nhật avatar sau khi thêm
 });
+
+
 document.getElementById("addMember").addEventListener("click", function (event) {
     event.preventDefault();
 
     let modalErase = document.querySelector(".addMember");
     modalErase.style.display = "flex";
 });
+
+
+
 
 // NÚT HỦY KHI THÊM THÀNH VIÊN
 document.getElementById("add3Cancel").addEventListener("click", function (event) {
@@ -502,11 +530,33 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
 
 
 function toggleSection(section) {
-    const rows = document.querySelectorAll(`tr.task-row[data-status="${section === 'inProgress' ? 'In Progress' : section.charAt(0).toUpperCase() + section.slice(1)}"]`);
+    const statusMap = {
+        todo: "To do",
+        inProgress: "In Progress",
+        pending: "Pending",
+        done: "Done"
+    };
+
+    const statusText = statusMap[section];
+    const rows = document.querySelectorAll(`tr.task-row[data-status="${statusText}"]`);
+
+    if (rows.length === 0) return; // Không có nhiệm vụ thì thoát
+
+    const isHidden = rows[0].style.display === "none" || rows[0].style.display === "";
+
+    // Đóng/mở các dòng nhiệm vụ
     rows.forEach(row => {
-        row.style.display = (row.style.display === "none" || row.style.display === "") ? "table-row" : "none";
+        row.style.display = isHidden ? "table-row" : "none";
     });
+
+    // Hiển thị icon tương ứng
+    const openIcon = document.querySelector(`.${section}-section`).previousElementSibling.querySelector(".open");
+    const closeIcon = document.querySelector(`.${section}-section`).previousElementSibling.querySelector(".close");
+
+    openIcon.style.visibility = isHidden ? "visible" : "hidden";
+    closeIcon.style.visibility = isHidden ? "hidden" : "visible";
 }
+
 
 //HÀM CẬP NHẬT BẢNG
 // Hàm cập nhật bảng với các nhiệm vụ còn lại
@@ -527,8 +577,8 @@ function updateTable(tasksMission) {
     <td>${task.taskName}</td>
     <td>${task.personInCharge.replace("@gmail.com", "")}</td>
     <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
-<td class="date-cell">${formatDate(task.assignDate)}</td>
-<td class="date-cell">${formatDate(task.dueDate)}</td>
+    <td class="date-cell">${formatDate(task.assignDate)}</td>
+    <td class="date-cell">${formatDate(task.dueDate)}</td>
     <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
     <td>
         <button class="editMission">Sửa</button>
@@ -588,6 +638,26 @@ document.getElementById("task3Cancel").addEventListener("click", function (event
 
 
 
+
+// TÌM KIẾM NHIỆM VỤ 
+document.getElementById("searchTask").addEventListener("input", function (event) {
+    event.preventDefault();
+    const searchTerm = event.target.value.toLowerCase(); // Lấy từ khoá tìm kiếm
+
+    const tasks = document.querySelectorAll(".task-row"); // Tất cả các dòng nhiệm vụ
+
+    tasks.forEach(task => {
+        const taskName = task.children[0].innerText.toLowerCase(); // Tên nhiệm vụ
+        const personInCharge = task.children[1].innerText.toLowerCase(); // Người phụ trách
+
+        // Nếu taskName hoặc personInCharge có chứa từ khoá tìm kiếm thì hiển thị, ngược lại ẩn
+        if (taskName.includes(searchTerm) || personInCharge.includes(searchTerm)) {
+            task.style.display = "table-row";
+        } else {
+            task.style.display = "none";
+        }
+    });
+});
 
 
 
