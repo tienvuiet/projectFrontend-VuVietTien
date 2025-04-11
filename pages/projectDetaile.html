@@ -99,61 +99,47 @@
                         </tr>
                     </thead>
                     <tbody class="showTasksInTable">
-                        <!-- To do Section -->
+                        <!-- TO DO -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">
-                                <div class="openClose">
-                                    <img src="../assets/Triangle.png" alt="" class="open">
-                                    <img src="../assets/left.png" alt="" class="close">
-                                </div> 
-                                To do
-                            </td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">To do</td>
                         </tr>
-                        <tr class="todo-section">
-                            <td colspan="7">Chưa có nhiệm vụ</td>
-                        </tr>
-                        <!-- In Progress Section -->
-                        <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">
-                                <div class="openClose">
-                                    <img src="../assets/Triangle.png" alt="" class="open">
-                                    <img src="../assets/left.png" alt="" class="close">
-                                </div>
-                                In Progress
-                            </td>
-                        </tr>
-                        <tr class="inProgress-section">
-                            <td colspan="7">Chưa có nhiệm vụ</td>
-                        </tr>
+                        <tbody class="todo-section"> <!-- DÙNG tbody RIÊNG -->
+                            <tr>
+                                <td colspan="7">Chưa có nhiệm vụ</td>
+                            </tr>
+                        </tbody>
                     
-                        <!-- Pending Section -->
+                        <!-- IN PROGRESS -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">
-                                <div class="openClose">
-                                    <img src="../assets/Triangle.png" alt="" class="open">
-                                    <img src="../assets/left.png" alt="" class="close">
-                                </div>
-                                Pending
-                            </td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">In Progress</td>
                         </tr>
-                        <tr class="pending-section">
-                            <td colspan="7">Chưa có nhiệm vụ</td>
-                        </tr>
+                        <tbody class="inProgress-section"> <!-- DÙNG tbody RIÊNG -->
+                            <tr>
+                                <td colspan="7">Chưa có nhiệm vụ</td>
+                            </tr>
+                        </tbody>
                     
-                        <!-- Done Section -->
+                        <!-- PENDING -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('done')">
-                                <div class="openClose">
-                                    <img src="../assets/Triangle.png" alt="" class="open">
-                                    <img src="../assets/left.png" alt="" class="close">
-                                </div>
-                                Done
-                            </td>
+                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">Pending</td>
                         </tr>
-                        <tr class="done-section">
-                            <td colspan="7">Chưa có nhiệm vụ</td>
+                        <tbody class="pending-section"> <!-- DÙNG tbody RIÊNG -->
+                            <tr>
+                                <td colspan="7">Chưa có nhiệm vụ</td>
+                            </tr>
+                        </tbody>
+                    
+                        <!-- DONE -->
+                        <tr>
+                            <td colspan="7" class="section-title" onclick="toggleSection('done')">Done</td>
                         </tr>
+                        <tbody class="done-section"> <!-- DÙNG tbody RIÊNG -->
+                            <tr>
+                                <td colspan="7">Chưa có nhiệm vụ</td>
+                            </tr>
+                        </tbody>
                     </tbody>
+                    
                     
                 </table>
             </div>

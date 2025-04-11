@@ -437,19 +437,17 @@ footer div {
 
 /* THÊM SỬA NHIỆM VỤ */
 .add-editTask {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    /* Đảm bảo modal luôn hiển thị trên các phần tử khác */
-    display: none;
-}
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+  }
 
 .tableAddEditTask {
     width: 480px;
