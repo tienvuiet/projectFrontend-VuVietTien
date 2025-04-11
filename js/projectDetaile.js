@@ -361,8 +361,7 @@ function handleEditTask(event) {
     document.querySelector(".add-editTask").style.display = "flex";
 }
 //NÚT XÓA
-// Sử dụng event delegation để xử lý sự kiện xóa trên tất cả các phần tử nhiệm vụ
-// Sử dụng event delegation để xử lý sự kiện xóa trên tất cả các phần tử nhiệm vụ
+
 
 
 // Thêm sự kiện xoá động
@@ -385,6 +384,10 @@ document.addEventListener('click', function (event) {
         }
     }
 });
+
+
+
+
 // TẠO OPTION CỦA SELECT THÀNH VIÊN
 const projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
 if (projectManagement && projectManagement.members) {
@@ -401,6 +404,9 @@ if (projectManagement && projectManagement.members) {
         selectElement.appendChild(option); // Thêm option vào <select>
     });
 }
+
+
+
 
 // SỰ KIỆN LƯU
 document.getElementById("task3Save").addEventListener("click", function (event) {
@@ -419,14 +425,36 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     const priority = document.getElementById("inputPriority").value.trim();
     const progress = document.getElementById("inputProgress").value.trim();
 
-    // kiểm tra trống
-    if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
+    // ✅ Kiểm tra trùng tên trước
+    const isDuplicateName = tasksMission.some(task =>
+        task.taskName.trim().toLowerCase() === taskName.toLowerCase() &&
+        task.id !== parseInt(editingTaskId) // cho phép sửa chính nó
+    );
+
+    if (isDuplicateName) {
         document.getElementById("updateTaskFail").style.visibility = "visible";
         return;
     } else {
         document.getElementById("updateTaskFail").style.visibility = "hidden";
     }
 
+    // ✅ Kiểm tra trống sau khi đã kiểm tra trùng
+    if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
+        document.querySelector(".add-editTask").style.display = "none";
+
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Không được để trống bất kỳ trường nào!",
+            footer: '<a href="#">Vì sao tôi gặp lỗi này?</a>'
+        }).then(() => {
+            document.querySelector(".add-editTask").style.display = "flex";
+        });
+
+        return;
+    }
+
+    // ✅ Thêm hoặc cập nhật nhiệm vụ
     if (editingTaskId) {
         const taskIndex = tasksMission.findIndex(task => task.id === parseInt(editingTaskId));
         if (taskIndex !== -1) {
@@ -474,62 +502,50 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
 
 
 function toggleSection(section) {
-    let sectionElement = document.querySelector(`.${section}-section`);
-
-    if (!sectionElement) {
-        console.error(`Không tìm thấy phần tử có class: ${section}-section`);
-        return;
-    }
-
-    if (sectionElement.style.display === "none" || sectionElement.style.display === "") {
-        sectionElement.style.display = "table-row-group";
-    } else {
-        sectionElement.style.display = "none";
-    }
-}
-//HÀM CẬP NHẬT BẢNG
-// Hàm cập nhật bảng với các nhiệm vụ còn lại
-function updateTable(tasksMission) {
-    const todoSection = document.querySelector(".todo-section");
-    const inProgressSection = document.querySelector(".inProgress-section");
-    const pendingSection = document.querySelector(".pending-section");
-    const doneSection = document.querySelector(".done-section");
-
-    // Clear các section trước khi thêm lại dữ liệu
-    todoSection.innerHTML = "";
-    inProgressSection.innerHTML = "";
-    pendingSection.innerHTML = "";
-    doneSection.innerHTML = "";
-
-    tasksMission.forEach(task => {
-        const taskRow = `
-        <tr data-task-id="${task.id}" data-status="${task.status}">
-            <td>${task.taskName}</td>
-            <td>${task.personInCharge}</td>
-            <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
-            <td>${task.assignDate}</td>
-            <td>${task.dueDate}</td>
-            <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
-            <td>
-                 <button class="editMission">Sửa</button>
-                <button class="deleteMission">Xóa</button>
-            </td>
-        </tr>`;
-
-        switch (task.status) {
-            case "To do":
-                todoSection.innerHTML += taskRow; break;
-            case "In Progress":
-                inProgressSection.innerHTML += taskRow; break;
-            case "Pending":
-                pendingSection.innerHTML += taskRow; break;
-            case "Done":
-                doneSection.innerHTML += taskRow; break;
-        }
+    const rows = document.querySelectorAll(`tr.task-row[data-status="${section === 'inProgress' ? 'In Progress' : section.charAt(0).toUpperCase() + section.slice(1)}"]`);
+    rows.forEach(row => {
+        row.style.display = (row.style.display === "none" || row.style.display === "") ? "table-row" : "none";
     });
 }
 
+//HÀM CẬP NHẬT BẢNG
+// Hàm cập nhật bảng với các nhiệm vụ còn lại
+function updateTable(tasksMission) {
+    const sections = {
+        "To do": document.querySelector(".todo-section"),
+        "In Progress": document.querySelector(".inProgress-section"),
+        "Pending": document.querySelector(".pending-section"),
+        "Done": document.querySelector(".done-section")
+    };
 
+    // Xóa tất cả các nhiệm vụ trước đó
+    document.querySelectorAll(".task-row").forEach(row => row.remove());
+
+    tasksMission.forEach(task => {
+        const taskRow = `
+<tr class="task-row" data-task-id="${task.id}" data-status="${task.status}">
+    <td>${task.taskName}</td>
+    <td>${task.personInCharge.replace("@gmail.com", "")}</td>
+    <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
+<td class="date-cell">${formatDate(task.assignDate)}</td>
+<td class="date-cell">${formatDate(task.dueDate)}</td>
+    <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
+    <td>
+        <button class="editMission">Sửa</button>
+        <button class="deleteMission">Xóa</button>
+    </td>
+</tr>`;
+
+        const section = sections[task.status];
+        section.insertAdjacentHTML("afterend", taskRow); // chèn ngay sau dòng tiêu đề section
+    });
+}
+function formatDate(dateStr) {
+    if (!dateStr) return "";
+    const parts = dateStr.split("-");
+    if (parts.length !== 3) return dateStr;
+    return `${parts[2]}-${parts[1]}`; // Trả về dạng dd/mm
+}
 window.addEventListener('load', function () {
     const tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
     updateTable(tasksMission);  // Cập nhật bảng với dữ liệu từ localStorage

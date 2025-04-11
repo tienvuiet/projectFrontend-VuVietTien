@@ -101,44 +101,33 @@
                     <tbody class="showTasksInTable">
                         <!-- TO DO -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">To do</td>
+                          <td colspan="7" class="section-title" onclick="toggleSection('todo')">
+                            To do</td>
                         </tr>
-                        <tbody class="todo-section"> <!-- DÙNG tbody RIÊNG -->
-                            <tr>
-                                <td colspan="7">Chưa có nhiệm vụ</td>
-                            </tr>
-                        </tbody>
-                    
+                        <!-- Section todo -->
+                        <tr class="todo-section task-section" style="display: table-row-group;"></tr>
+                      
                         <!-- IN PROGRESS -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">In Progress</td>
+                          <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">In Progress</td>
                         </tr>
-                        <tbody class="inProgress-section"> <!-- DÙNG tbody RIÊNG -->
-                            <tr>
-                                <td colspan="7">Chưa có nhiệm vụ</td>
-                            </tr>
-                        </tbody>
-                    
+                        <!-- Section inProgress -->
+                        <tr class="inProgress-section task-section" style="display: table-row-group;"></tr>
+                      
                         <!-- PENDING -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">Pending</td>
+                          <td colspan="7" class="section-title" onclick="toggleSection('pending')">Pending</td>
                         </tr>
-                        <tbody class="pending-section"> <!-- DÙNG tbody RIÊNG -->
-                            <tr>
-                                <td colspan="7">Chưa có nhiệm vụ</td>
-                            </tr>
-                        </tbody>
-                    
+                        <!-- Section pending -->
+                        <tr class="pending-section task-section" style="display: table-row-group;"></tr>
+                      
                         <!-- DONE -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('done')">Done</td>
+                          <td colspan="7" class="section-title" onclick="toggleSection('done')">Done</td>
                         </tr>
-                        <tbody class="done-section"> <!-- DÙNG tbody RIÊNG -->
-                            <tr>
-                                <td colspan="7">Chưa có nhiệm vụ</td>
-                            </tr>
-                        </tbody>
-                    </tbody>
+                        <!-- Section done -->
+                        <tr class="done-section task-section" style="display: table-row-group;"></tr>
+                      </tbody>
                     
                     
                 </table>
@@ -163,7 +152,7 @@
             <div class="task2">
                 <label for="">Tên nhiệm vụ</label>
                 <input type="text" id="updateTask">
-                <p id="updateTaskFail">Nhiệm vụ đã tồn tại hoặc nhiệm vụ để trống!!!</p>
+                <p id="updateTaskFail">Nhiệm vụ đã tồn tại!!!</p>
                 <label for="">Người phụ trách</label>
                 <select name="" id="inputPersonInCharge">
                     <option value="">Chọn người phụ trách</option>

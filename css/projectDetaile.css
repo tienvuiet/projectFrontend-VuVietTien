@@ -819,3 +819,17 @@ footer div {
 #saveShow4 {
     background-color: #0D6EFD;
 }
+
+
+
+
+table td, table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.date-cell {
+    background-color: #f2f2f2;
+    color: #007bff;
+    font-weight: bold;
+    border-radius: 4px;
+}
