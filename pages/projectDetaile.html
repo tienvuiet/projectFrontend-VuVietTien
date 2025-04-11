@@ -83,7 +83,7 @@
                 </div>
             </main>
         </main>
-        <div class="total2 ">
+        <div class="total2">
             <div class="main2">
                 <h2>Danh Sách Nhiệm Vụ</h2>
                 <table class="table table-bordered">
@@ -99,87 +99,62 @@
                         </tr>
                     </thead>
                     <tbody class="showTasksInTable">
+                        <!-- To do Section -->
                         <tr>
                             <td colspan="7" class="section-title" onclick="toggleSection('todo')">
-                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
-                                </div> To do
+                                <div class="openClose">
+                                    <img src="../assets/Triangle.png" alt="" class="open">
+                                    <img src="../assets/left.png" alt="" class="close">
+                                </div> 
+                                To do
                             </td>
                         </tr>
                         <tr class="todo-section">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td>An Nguyễn</td>
-                            <td><span id="short">Thấp</span></td>
-                            <td>02 - 24</td>
-                            <td>02 - 27</td>
-                            <td><span id="onSchedule">Đúng tiến độ</span></td>
-                            <td>
-                                <button class="editMission">Sửa</button>
-                                <button class="deleteMission">Xóa</button>
-                            </td>
+                            <td colspan="7">Chưa có nhiệm vụ</td>
                         </tr>
-                        <tr class="todo-section">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td>An Nguyễn</td>
-                            <td><span class="badge bg-warning text-dark">Trung bình</span></td>
-                            <td>02 - 24</td>
-                            <td>02 - 27</td>
-                            <td><span class="badge bg-warning">Có rủi ro</span></td>
-                            <td>
-                                <button class="editMission">Sửa</button>
-                                <button class="deleteMission">Xóa</button>
-                            </td>
-                        </tr>
-                        <tr class="todo-section">
-                            <td>Soạn thảo đề cương dự án</td>
-                            <td>An Nguyễn</td>
-                            <td><span class="badge bg-danger text-light">Cao</span></td>
-                            <td>02 - 24</td>
-                            <td>02 - 27</td>
-                            <td><span class="badge bg-danger">Trễ hạn</span></td>
-                            <td>
-                                <button class="editMission">Sửa</button>
-                                <button class="deleteMission">Xóa</button>
-                            </td>
-                        </tr>
-
+                        <!-- In Progress Section -->
                         <tr>
                             <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">
-                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
-                                </div> In Progress
+                                <div class="openClose">
+                                    <img src="../assets/Triangle.png" alt="" class="open">
+                                    <img src="../assets/left.png" alt="" class="close">
+                                </div>
+                                In Progress
                             </td>
                         </tr>
                         <tr class="inProgress-section">
-                            <td>Lên lịch họp kickoff</td>
-                            <td>An Nguyễn</td>
-                            <td><span class="badge bg-warning text-dark">Trung bình</span></td>
-                            <td>02 - 24</td>
-                            <td>02 - 27</td>
-                            <td><span class="badge bg-warning">Có rủi ro</span></td>
-                            <td>
-                                <button class="editMission">Sửa</button>
-                                <button class="deleteMission">Xóa</button>
-                            </td>
+                            <td colspan="7">Chưa có nhiệm vụ</td>
                         </tr>
-
+                    
+                        <!-- Pending Section -->
                         <tr>
                             <td colspan="7" class="section-title" onclick="toggleSection('pending')">
-                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
-                                </div> Pending</td>
+                                <div class="openClose">
+                                    <img src="../assets/Triangle.png" alt="" class="open">
+                                    <img src="../assets/left.png" alt="" class="close">
+                                </div>
+                                Pending
+                            </td>
                         </tr>
                         <tr class="pending-section">
                             <td colspan="7">Chưa có nhiệm vụ</td>
                         </tr>
-
+                    
+                        <!-- Done Section -->
                         <tr>
                             <td colspan="7" class="section-title" onclick="toggleSection('done')">
-                                <div class="openClose"><img src="../assets/Triangle.png" alt="" id="open"> <img src="../assets/left.png" alt="" id="close">
+                                <div class="openClose">
+                                    <img src="../assets/Triangle.png" alt="" class="open">
+                                    <img src="../assets/left.png" alt="" class="close">
                                 </div>
-                                Done</td>
+                                Done
+                            </td>
                         </tr>
                         <tr class="done-section">
                             <td colspan="7">Chưa có nhiệm vụ</td>
                         </tr>
                     </tbody>
+                    
                 </table>
             </div>
         </div>

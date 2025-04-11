@@ -276,6 +276,10 @@ footer div {
 
 
 /* phần bẳng */
+/* .showTasksInTable{
+    display: flex;
+    flex-direction: column;
+} */
 
 .total2 {
     background-color: #F8F9FA;
@@ -292,7 +296,7 @@ footer div {
 .openClose{
     position: relative;
 }
-#close {
+.close {
     position: absolute;
     top: 2px;
     left: -4px;

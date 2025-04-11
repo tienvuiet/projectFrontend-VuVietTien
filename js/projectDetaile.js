@@ -297,22 +297,6 @@ document.querySelector(".show30").addEventListener("click", function (event) {
 
 
 
-function toggleSection(section) {
-    let sectionElement = document.querySelector(`.${section}-section`);
-    let openIcon = document.getElementById("open");
-    let closeIcon = document.getElementById("close");
-
-    if (sectionElement.style.display === "none" || sectionElement.style.display === "") {
-        sectionElement.style.display = "table-row"; // Hiển thị phần mục
-        openIcon.style.visibility = "visible"; // Hiển thị biểu tượng mở
-        closeIcon.style.visibility = "hidden";  // Ẩn biểu tượng đóng
-
-    } else {
-        sectionElement.style.display = "none"; // Ẩn phần mục
-        openIcon.style.visibility = "hidden";  // Ẩn biểu tượng mở
-        closeIcon.style.visibility = "visible"; // Hiển thị biểu tượng đóng
-    }
-}
 
 
 
@@ -336,16 +320,79 @@ document.querySelectorAll(".editMission").forEach(function (editButton) {
 
 
 
+//NÚT SỬA
+document.querySelector(".todo-section").addEventListener("click", handleEditTask);
+document.querySelector(".inProgress-section").addEventListener("click", handleEditTask);
+document.querySelector(".pending-section").addEventListener("click", handleEditTask);
+document.querySelector(".done-section").addEventListener("click", handleEditTask);
 
+// Hàm xử lý sự kiện sửa nhiệm vụ
+function handleEditTask(event) {
+    if (event.target && event.target.classList.contains("editMission")) {
+        event.preventDefault();
+        let modalErase = document.querySelector(".add-editTask");
+        modalErase.style.display = "flex";
+        
+        // Lấy dữ liệu nhiệm vụ từ hàng mà người dùng nhấn sửa
+        let taskRow = event.target.closest("tr"); // Tìm phần tử tr chứa nút sửa
+        let taskName = taskRow.querySelector("td:nth-child(1)").innerText;
+        let personInCharge = taskRow.querySelector("td:nth-child(2)").innerText;
+        let priority = taskRow.querySelector("td:nth-child(3)").innerText;
+        let assignDate = taskRow.querySelector("td:nth-child(4)").innerText;
+        let dueDate = taskRow.querySelector("td:nth-child(5)").innerText;
+        let progress = taskRow.querySelector("td:nth-child(6)").innerText;
+        let status = taskRow.querySelector("td:nth-child(7)").innerText;
 
+        // Điền thông tin vào form sửa
+        document.getElementById("updateTask").value = taskName;
+        document.getElementById("inputPersonInCharge").value = personInCharge;
+        document.getElementById("inputPriority").value = priority;
+        document.getElementById("inputAssignDate").value = assignDate;
+        document.getElementById("inputDueDate").value = dueDate;
+        document.getElementById("inputProgress").value = progress;
+        document.getElementById("inputStatus").value = status;
 
+        // Lưu id nhiệm vụ vào modal để cập nhật sau
+        modalErase.setAttribute("data-task-id", taskRow.getAttribute("data-task-id"));
+    }
+}
 
+//NÚT XÓA
+// Sử dụng event delegation để xử lý sự kiện xóa trên tất cả các phần tử nhiệm vụ
+// Sử dụng event delegation để xử lý sự kiện xóa trên tất cả các phần tử nhiệm vụ
+document.querySelector(".todo-section").addEventListener("click", handleDeleteTask);
+document.querySelector(".inProgress-section").addEventListener("click", handleDeleteTask);
+document.querySelector(".pending-section").addEventListener("click", handleDeleteTask);
+document.querySelector(".done-section").addEventListener("click", handleDeleteTask);
 
+// Hàm xử lý sự kiện xóa nhiệm vụ
+function handleDeleteTask(event) {
+    if (event.target && event.target.classList.contains("deleteMission")) {
+        event.preventDefault();
 
+        // Lấy dữ liệu nhiệm vụ từ hàng mà người dùng nhấn xóa
+        let taskRow = event.target.closest("tr"); // Tìm phần tử tr chứa nút xóa
+        let taskId = taskRow.getAttribute("data-task-id");
 
+        // Xác nhận xóa nhiệm vụ
+        const confirmDelete = confirm("Bạn có chắc chắn muốn xóa nhiệm vụ này?");
+        if (confirmDelete) {
+            // Lấy danh sách nhiệm vụ hiện tại từ localStorage
+            let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
 
+            // Lọc ra các nhiệm vụ còn lại sau khi xóa nhiệm vụ cần xóa
+            let updatedTasks = tasksMission.filter(task => task.id != taskId);
 
-// LƯU NHIỆM VỤ
+            // Cập nhật lại danh sách nhiệm vụ trong localStorage
+            localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+            // Cập nhật lại bảng nhiệm vụ mà không thêm thẻ mới
+            updateTable(updatedTasks);
+        }
+    }
+}
+
+// TẠO OPTION CỦA SELECT THÀNH VIÊN
 const projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
 if (projectManagement && projectManagement.members) {
     // Lấy phần tử <select> để thêm các lựa chọn
@@ -366,87 +413,67 @@ if (projectManagement && projectManagement.members) {
 document.getElementById("task3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Lấy giá trị từ các trường trong form
     const updateTaskFail = document.getElementById("updateTaskFail");
-    const taskName = document.getElementById("updateTask").value;
-    const personInCharge = document.getElementById("inputPersonInCharge").value + "@gmail.com";
-    const status = document.getElementById("inputStatus").value;
-    const assignDate = document.getElementById("inputAssignDate").value;
-    const dueDate = document.getElementById("inputDueDate").value;
-    const priority = document.getElementById("inputPriority").value;
-    const progress = document.getElementById("inputProgress").value;
+    const taskName = document.getElementById("updateTask").value.trim();
+    const personInCharge = document.getElementById("inputPersonInCharge").value.trim();
+    const status = document.getElementById("inputStatus").value.trim();
+    const assignDate = document.getElementById("inputAssignDate").value.trim();
+    const dueDate = document.getElementById("inputDueDate").value.trim();
+    const priority = document.getElementById("inputPriority").value.trim();
+    const progress = document.getElementById("inputProgress").value.trim();
 
-    // Kiểm tra nếu có trường dữ liệu thiếu
     if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
-        updateTaskFail.style.visibility = "visible"; // Hiển thị thông báo lỗi nếu có trường dữ liệu thiếu
-        return; // Dừng thực thi nếu có trường dữ liệu bị bỏ trống
-    }
-
-    // Kiểm tra nếu taskName bị trùng
-    const members = projectManagement.members || [];
-
-    // Tìm userId của người phụ trách từ members
-    const assignee = members.find(member => member.email === personInCharge);
-    if (!assignee) {
-        console.error("Không tìm thấy người phụ trách trong danh sách thành viên.");
+        updateTaskFail.style.visibility = "visible";
         return;
+    } else {
+        updateTaskFail.style.visibility = "hidden";
     }
-    const assigneeId = assignee.userId;  // Lấy userId của người phụ trách
 
-    // Lấy projectId từ projectManagement.id
-    const projectId = projectManagement.id;
-
-    // Lấy danh sách nhiệm vụ hiện tại từ localStorage (hoặc tạo mảng trống nếu chưa có)
     let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+    let modalErase = document.querySelector(".add-editTask");
+    let editingTaskId = modalErase.getAttribute("data-task-id");
 
-    // Nếu chưa có nhiệm vụ nào, gán taskId = 0, nếu có thì lấy taskId từ localStorage
-    let taskId = tasksMission.length === 0 ? 0 : parseInt(localStorage.getItem("taskId") || "0");
+    if (editingTaskId) {
+        // ĐANG SỬA
+        editingTaskId = parseInt(editingTaskId);
+        let taskIndex = tasksMission.findIndex(task => task.id === editingTaskId);
+        if (taskIndex !== -1) {
+            // Cập nhật lại nội dung nhiệm vụ
+            tasksMission[taskIndex] = {
+                id: editingTaskId,
+                taskName: taskName,
+                personInCharge: personInCharge.endsWith("@gmail.com") ? personInCharge : personInCharge + "@gmail.com",
+                assignDate: assignDate,
+                dueDate: dueDate,
+                priority: priority,
+                progress: progress,
+                status: status,
+            };
+        }
+    } else {
+        // THÊM MỚI
+        let taskId = parseInt(localStorage.getItem("taskId") || "0") + 1;
+        localStorage.setItem("taskId", taskId);
 
-    // Tăng taskId lên 1 sau khi tạo nhiệm vụ mới
-    taskId += 1;
-
-    // Lưu taskId mới vào localStorage để tăng cho lần tiếp theo
-    localStorage.setItem("taskId", taskId);
-
-    // Kiểm tra trùng lặp nhiệm vụ
-    let taskExists = tasksMission.some(task => task.taskName === taskName); // Kiểm tra nếu nhiệm vụ đã tồn tại
-    if (taskExists) {
-        updateTaskFail.style.visibility = "visible"; // Hiển thị thông báo lỗi nếu tên nhiệm vụ đã tồn tại
-        document.getElementById("updateTask").style.border = "1px solid red"; // Thêm border đỏ vào input taskName
-        return;
+        tasksMission.push({
+            id: taskId,
+            taskName: taskName,
+            personInCharge: personInCharge + "@gmail.com",
+            assignDate: assignDate,
+            dueDate: dueDate,
+            priority: priority,
+            progress: progress,
+            status: status,
+        });
     }
 
-    // Tạo đối tượng nhiệm vụ
-    const task = {
-        id: taskId, // Sử dụng taskId tự động tăng
-        taskName: taskName,
-        assigneeId: assigneeId, // Gán assigneeId là userId của người phụ trách
-        projectId: projectId,  // Sử dụng projectId từ projectManagement
-        assignDate: assignDate,
-        dueDate: dueDate,
-        priority: priority,
-        progress: progress,
-        status: status,
-    };
-
-    // Thêm nhiệm vụ mới vào danh sách
-    tasksMission.push(task);
-
-    // Lưu lại vào localStorage
+    // ✅ CẬP NHẬT VÀO LOCAL STORAGE SAU KHI SỬA/THÊM
     localStorage.setItem("tasks", JSON.stringify(tasksMission));
 
-    // Log dữ liệu đã lưu vào localStorage
-    console.log("Dữ liệu nhiệm vụ đã lưu:", task);
-
-    // Đóng modal
-    let modalErase = document.querySelector(".add-editTask");
+    // 🧹 Reset và đóng form
+    modalErase.removeAttribute("data-task-id");
     modalErase.style.display = "none";
 
-    // Ẩn thông báo lỗi và làm lại các thay đổi
-    updateTaskFail.style.visibility = "hidden";
-    document.getElementById("updateTask").style.border = ""; // Xóa border đỏ khi hoàn thành
-
-    // Reset tất cả các trường input về giá trị mặc định
     document.getElementById("updateTask").value = "";
     document.getElementById("inputPersonInCharge").value = "";
     document.getElementById("inputStatus").value = "";
@@ -454,7 +481,100 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     document.getElementById("inputDueDate").value = "";
     document.getElementById("inputPriority").value = "";
     document.getElementById("inputProgress").value = "";
+
+    updateTable(tasksMission); // ⬅️ cập nhật lại giao diện
 });
+
+
+function toggleSection(section) {
+    let sectionElement = document.querySelector(`.${section}-section`);
+    let openIcon = document.querySelector(".open");
+    let closeIcon = document.querySelector(".close");
+
+    if (sectionElement.style.display === "none" || sectionElement.style.display === "") {
+        sectionElement.style.display = "table-row"; // Hiển thị phần mục
+        openIcon.style.visibility = "visible"; // Hiển thị biểu tượng mở
+        closeIcon.style.visibility = "hidden";  // Ẩn biểu tượng đóng
+
+    } else {
+        sectionElement.style.display = "none"; // Ẩn phần mục
+        openIcon.style.visibility = "hidden";  // Ẩn biểu tượng mở
+        closeIcon.style.visibility = "visible"; // Hiển thị biểu tượng đóng
+    }
+}
+
+//HÀM CẬP NHẬT BẢNG
+// Hàm cập nhật bảng với các nhiệm vụ còn lại
+function updateTable(tasksMission) {
+    const todoSection = document.querySelector(".todo-section");
+    const inProgressSection = document.querySelector(".inProgress-section");
+    const pendingSection = document.querySelector(".pending-section");
+    const doneSection = document.querySelector(".done-section");
+
+    // Clear các section trước khi thêm lại dữ liệu
+    todoSection.innerHTML = "";
+    inProgressSection.innerHTML = "";
+    pendingSection.innerHTML = "";
+    doneSection.innerHTML = "";
+
+    // Duyệt qua tất cả nhiệm vụ và thêm vào các phần tương ứng
+    tasksMission.forEach(task => {
+        const taskRow = `
+        
+            <tr data-task-id="${task.id}">
+                <td>${task.taskName}</td>
+                <td>${task.personInCharge}</td>
+                <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
+                <td>${task.assignDate}</td>
+                <td>${task.dueDate}</td>
+                <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
+                <td>
+                    <button class="editMission">Sửa</button>
+                    <button class="deleteMission">Xóa</button>
+                </td>
+            </tr>
+           
+        `;
+        // Thêm nhiệm vụ vào phần tương ứng với trạng thái
+        switch (task.status) {
+            case "To do":
+                todoSection.innerHTML += taskRow;
+                break;
+            case "In Progress":
+                inProgressSection.innerHTML += taskRow;
+                break;
+            case "Pending":
+                pendingSection.innerHTML += taskRow;
+                break;
+            case "Done":
+                doneSection.innerHTML += taskRow;
+                break;
+        }
+    });
+}
+window.addEventListener('load', function () {
+    const tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+    updateTable(tasksMission);  // Cập nhật bảng với dữ liệu từ localStorage
+});
+// Hàm để lấy class CSS cho mức độ ưu tiên
+function getPriorityBadgeClass(priority) {
+    switch (priority) {
+        case "Thấp": return "bg-success";
+        case "Trung bình": return "bg-warning";
+        case "Cao": return "bg-danger";
+        default: return "";
+    }
+}
+
+// Hàm để lấy class CSS cho tiến độ
+function getProgressBadgeClass(progress) {
+    switch (progress) {
+        case "Đúng tiến độ": return "bg-success";
+        case "Có rủi ro": return "bg-warning";
+        case "Trễ hạn": return "bg-danger";
+        default: return "";
+    }
+}
 
 document.getElementById("outAddEdit").addEventListener("click", function (event) {
     event.preventDefault();
@@ -472,32 +592,6 @@ document.getElementById("task3Cancel").addEventListener("click", function (event
 
 
 
-
-
-// ĐỔ NHIỆM VỤ VÀO BẢNG
-function showTasksInTable(){
-    let tableTask = document.querySelector(".showTasksInTable");
-    tableTask.innerHTML = ""; // Xóa bảng cũ
-
-    // Lấy dữ liệu nhiệm vụ từ localStorage
-    let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    // Lặp qua mảng nhiệm vụ và hiển thị thông tin
-    tasksMission.forEach((task) => {
-        let taskRow = `
-            <div class="showTaskTable1">
-                <div class="showTaskTable11">${task.taskName}</div>
-                <div class="showTaskTable12">${task.assigneeId}</div>
-                <div class="showTaskTable13">${task.assignDate}</div>
-                <div class="showTaskTable14">${task.dueDate}</div>
-                <div class="showTaskTable15">${task.priority}</div>
-                <div class="showTaskTable16">${task.progress}</div>
-                <div class="showTaskTable17">${task.status}</div>
-            </div>
-        `;
-        tableTask.innerHTML += taskRow; // Thêm nhiệm vụ vào bảng
-    });
-}
 
 
 
