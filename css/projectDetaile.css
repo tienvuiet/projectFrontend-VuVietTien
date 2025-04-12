@@ -827,12 +827,26 @@ table td, table th {
     text-align: center;
     vertical-align: middle;
 }
-.date-cell {
-    background-color: #f2f2f2;
-    color: #007bff;
-    font-weight: bold;
-    border-radius: 4px;
+
+#inputAssignDate2 {
+    margin-top: 289px;
+    visibility: hidden;
+}
+#inputDueDate2 {
+    margin-top: 386px;
+    visibility: hidden;
 }
 
 
+.openUpdate {
+    transition: transform 0.2s ease-in-out; /* Hiệu ứng chuyển động mượt mà */
+}
 
+.openUpdate:hover {
+    transform: scale(1.4); /* Phóng to 10% khi hover */
+}
+
+/* Phóng to khi click vào */
+.openUpdate.active {
+    transform: scale(1.4); /* Phóng to khi click */
+}

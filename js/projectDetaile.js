@@ -1,6 +1,7 @@
 const tasks = [
     {
         id: 1,
+        idProjectManagement: 1,
         taskName: `Soạn thảo đề cương dự án `,
         assigneeId: 1,
         projectId: 1,
@@ -368,26 +369,27 @@ function handleEditTask(event) {
         return;
     }
 
-    let taskName = taskRow.children[0].innerText;
-    let personInCharge = taskRow.children[1].innerText.replace('@gmail.com', '');
-    let priority = taskRow.children[2].innerText;
-    let assignDate = taskRow.children[3].innerText;
-    let dueDate = taskRow.children[4].innerText;
-    let progress = taskRow.children[5].innerText;
-    let status = taskRow.getAttribute("data-status");
+    const taskId = taskRow.getAttribute("data-task-id");
+    const allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const taskData = allTasks.find(task => task.id === parseInt(taskId));
 
-    document.getElementById("updateTask").value = taskName;
-    document.getElementById("inputPersonInCharge").value = personInCharge;
-    document.getElementById("inputPriority").value = priority;
-    document.getElementById("inputAssignDate").value = assignDate;
-    document.getElementById("inputDueDate").value = dueDate;
-    document.getElementById("inputProgress").value = progress;
-    document.getElementById("inputStatus").value = status;
+    if (!taskData) {
+        console.error("Không tìm thấy dữ liệu nhiệm vụ trong localStorage");
+        return;
+    }
 
-    document.querySelector(".add-editTask").setAttribute("data-task-id", taskRow.getAttribute("data-task-id"));
+    document.getElementById("updateTask").value = taskData.taskName;
+    document.getElementById("inputPersonInCharge").value = taskData.personInCharge.replace("@gmail.com", "");
+    document.getElementById("inputPriority").value = taskData.priority;
+    document.getElementById("inputAssignDate").value = taskData.assignDate; // assignDate gốc yyyy-mm-dd
+    document.getElementById("inputDueDate").value = taskData.dueDate;       // dueDate gốc yyyy-mm-dd
+    document.getElementById("inputProgress").value = taskData.progress;
+    document.getElementById("inputStatus").value = taskData.status;
 
+    document.querySelector(".add-editTask").setAttribute("data-task-id", taskId);
     document.querySelector(".add-editTask").style.display = "flex";
 }
+
 //NÚT XÓA
 
 
@@ -403,17 +405,25 @@ document.addEventListener('click', function (event) {
             return;
         }
 
-        if (confirm('Bạn chắc chắn muốn xóa nhiệm vụ này?')) {
-            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-            tasks = tasks.filter(task => task.id !== parseInt(taskId));
-            localStorage.setItem('tasks', JSON.stringify(tasks));
+        Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: "You will definitely delete!",
+            footer: '<a href="#">Why do I have this issue?</a>',
+            showCancelButton: true,
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+                tasks = tasks.filter(task => task.id !== parseInt(taskId));
+                localStorage.setItem('tasks', JSON.stringify(tasks));
 
-            taskRow.remove();  // Xóa trực tiếp hàng đó khỏi giao diện
-        }
+                taskRow.remove();  // Xóa trực tiếp hàng đó khỏi giao diện
+            }
+        });
     }
 });
-
-
 
 
 // TẠO OPTION CỦA SELECT THÀNH VIÊN
@@ -437,6 +447,7 @@ if (projectManagement && projectManagement.members) {
 
 
 // SỰ KIỆN LƯU
+// ===== SỰ KIỆN LƯU NHIỆM VỤ (ĐÃ GỘP KIỂM TRA NGÀY VÀ HIỆN CẢNH BÁO) =====
 document.getElementById("task3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -453,67 +464,94 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     const priority = document.getElementById("inputPriority").value.trim();
     const progress = document.getElementById("inputProgress").value.trim();
 
-    // ✅ Kiểm tra trùng tên trước
+    const currentProject = JSON.parse(localStorage.getItem("projectManagement"));
+
+    // Reset thông báo lỗi trước khi kiểm tra
+    document.getElementById("inputAssignDate2").style.visibility = "hidden";
+    document.getElementById("inputDueDate2").style.visibility = "hidden";
+    document.getElementById("updateTaskFail").style.visibility = "hidden";
+
+    // Kiểm tra trùng tên
     const isDuplicateName = tasksMission.some(task =>
         task.taskName.trim().toLowerCase() === taskName.toLowerCase() &&
-        task.id !== parseInt(editingTaskId) // cho phép sửa chính nó
+        task.id !== parseInt(editingTaskId)
     );
-
     if (isDuplicateName) {
         document.getElementById("updateTaskFail").style.visibility = "visible";
         return;
-    } else {
-        document.getElementById("updateTaskFail").style.visibility = "hidden";
     }
 
-    // ✅ Kiểm tra trống sau khi đã kiểm tra trùng
+    // Kiểm tra không được để trống
     if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
-        document.querySelector(".add-editTask").style.display = "none";
-
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Không được để trống bất kỳ trường nào!",
             footer: '<a href="#">Vì sao tôi gặp lỗi này?</a>'
-        }).then(() => {
-            document.querySelector(".add-editTask").style.display = "flex";
         });
-
         return;
     }
 
-    // ✅ Thêm hoặc cập nhật nhiệm vụ
+    // Kiểm tra ngày bắt đầu lớn hơn ngày hiện tại
+    const today = new Date();
+    const startDate = new Date(assignDate);
+    today.setHours(0, 0, 0, 0);
+    startDate.setHours(0, 0, 0, 0);
+
+    if (startDate <= today) {
+        document.getElementById("inputAssignDate2").style.visibility = "visible";
+        return;
+    }
+
+    // Kiểm tra hạn chót lớn hơn ngày bắt đầu
+    const endDate = new Date(dueDate);
+    endDate.setHours(0, 0, 0, 0);
+
+    if (endDate <= startDate) {
+        document.getElementById("inputDueDate2").style.visibility = "visible";
+        return;
+    }
+
+    // ===== Nếu hợp lệ thì thêm/sửa nhiệm vụ =====
     if (editingTaskId) {
         const taskIndex = tasksMission.findIndex(task => task.id === parseInt(editingTaskId));
         if (taskIndex !== -1) {
             tasksMission[taskIndex] = {
                 ...tasksMission[taskIndex],
                 taskName,
-                personInCharge: personInCharge + "@gmail.com",
+                assigneeId: currentProject.ownerId,
+                idProjectManagement: currentProject.id,
+                projectId: currentProject.id,
                 assignDate,
                 dueDate,
                 priority,
                 progress,
                 status,
+                personInCharge: personInCharge + "@gmail.com"
             };
         }
     } else {
         let taskId = parseInt(localStorage.getItem("taskId") || "0") + 1;
         localStorage.setItem("taskId", taskId);
+
         tasksMission.push({
             id: taskId,
+            idProjectManagement: currentProject.id,
             taskName,
-            personInCharge: personInCharge + "@gmail.com",
+            assigneeId: currentProject.ownerId,
+            projectId: currentProject.id,
             assignDate,
             dueDate,
             priority,
             progress,
             status,
+            personInCharge: personInCharge + "@gmail.com"
         });
     }
 
     localStorage.setItem("tasks", JSON.stringify(tasksMission));
 
+    // Reset form
     modalErase.removeAttribute("data-task-id");
     modalErase.style.display = "none";
 
@@ -525,9 +563,9 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     document.getElementById("inputPriority").value = "";
     document.getElementById("inputProgress").value = "";
 
-    updateTable(tasksMission);
+    const filteredTasks = tasksMission.filter(task => task.idProjectManagement === currentProject.id);
+    updateTable(filteredTasks);
 });
-
 
 function toggleSection(section) {
     const statusMap = {
@@ -574,11 +612,11 @@ function updateTable(tasksMission) {
     tasksMission.forEach(task => {
         const taskRow = `
 <tr class="task-row" data-task-id="${task.id}" data-status="${task.status}">
-    <td>${task.taskName}</td>
+    <td style=" text-align: left; padding-left: 20px;">${task.taskName}</td>
     <td>${task.personInCharge.replace("@gmail.com", "")}</td>
     <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
-    <td class="date-cell">${formatDate(task.assignDate)}</td>
-    <td class="date-cell">${formatDate(task.dueDate)}</td>
+    <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.assignDate)}</td>
+    <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.dueDate)}</td>
     <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
     <td>
         <button class="editMission">Sửa</button>
@@ -596,10 +634,7 @@ function formatDate(dateStr) {
     if (parts.length !== 3) return dateStr;
     return `${parts[2]}-${parts[1]}`; // Trả về dạng dd/mm
 }
-window.addEventListener('load', function () {
-    const tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
-    updateTable(tasksMission);  // Cập nhật bảng với dữ liệu từ localStorage
-});
+
 // Hàm để lấy class CSS cho mức độ ưu tiên
 function getPriorityBadgeClass(priority) {
     switch (priority) {
@@ -711,7 +746,22 @@ document.getElementById("logOut").addEventListener("click", function (event) {
 
 
 
+// XẮP XẾP NHIỆM VỤ THEO HẠN CHÓT
 
 
+
+
+
+//HIỂN THỊ CÁC NHIỆM VỤ RIÊNG BIỆT CỦA TỪNG PROJECT
+window.addEventListener("DOMContentLoaded", function () {
+    const project = JSON.parse(localStorage.getItem("projectManagement"));
+    const allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    // Lọc ra các task có idProjectManagement trùng với project.id
+    const filteredTasks = allTasks.filter(task => task.idProjectManagement === project.id);
+
+    // Cập nhật bảng hoặc hiển thị danh sách nhiệm vụ
+    updateTable(filteredTasks); // Nếu bạn đã có sẵn hàm updateTable như bạn dùng ở các nơi khác
+});
 
 

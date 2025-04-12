@@ -56,39 +56,70 @@
                     <tbody class="showTasksInTable">
                         <!-- TO DO -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('todo')">
+                            <td colspan="7" class="section-title" >
                                 <div class="openClose">
                                     <img src="../assets/Triangle.png" alt="" class="open">
                                     <img src="../assets/left.png" alt="" class="close">
                                 </div>
-                                Xây dựng wedsite thương mại điện tử
+                                <div class="mission1">Xây dựng wedsite thương mại điện tử</div>
                             </td>
                         </tr>
-
+                        <tr class="display">    
+                            <td id="title">Soạn đề cương dự án</td>
+                            <td ><div id="short">Thấp</div></td>
+                            <td>In Progress <img src="../assets/Vector.png" alt="" class="openUpdate"></td>
+                            <td>02-24</td>
+                            <td>02-27</td>
+                            <td ><div id="onSchedule">Đúng tiến độ</div></td>
+                        </tr>
+                        <tr class="display">    
+                            <td id="title">Soạn đề cương dự án</td>
+                            <td ><div id="medium">trung bình</div></td>
+                            <td>In Progress <img src="../assets/Vector.png" alt="" class="openUpdate"></td>
+                            <td>02-24</td>
+                            <td>02-27</td>
+                            <td ><div id="risk">Có rủi ro</div></td>
+                        </tr>
+                        <tr class="display">    
+                            <td id="title">Soạn đề cương dự án</td>
+                            <td ><div id="high">Cao</div></td>
+                            <td>In Progress <img src="../assets/Vector.png" alt="" class="openUpdate"></td>
+                            <td>02-24</td>
+                            <td>02-27</td>
+                            <td ><div id="late">Trễ hạn</div></td>
+                        </tr>
                         <!-- Section todo -->
                         <tr class="todo-section task-section" style="display: table-row-group;"></tr>
 
                         <!-- IN PROGRESS -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('inProgress')">
+                            <td colspan="7" class="section-title" >
                                 <div class="openClose">
                                     <img src="../assets/Triangle.png" alt="" class="open">
                                     <img src="../assets/left.png" alt="" class="close">
                                 </div>
-                                In phát triển ứng dụng di động
+                                <div class="mission2">Phát triển ứng dụng di động </div>
                             </td>
                         </tr>
+                        <!-- <tr class="display2">    
+                            <td id="title">Lên lịch họp kickoff</td>
+                            <td ><div id="medium">trung bình</div></td>
+                            <td>In Progress <img src="../assets/Vector.png" alt="" class="openUpdate"></td>
+                            <td>02-24</td>
+                            <td>02-27</td>
+                            <td ><div id="risk">Có rủi ro</div></td>
+                        </tr> -->
                         <!-- Section inProgress -->
                         <tr class="inProgress-section task-section" style="display: table-row-group;"></tr>
 
                         <!-- PENDING -->
                         <tr>
-                            <td colspan="7" class="section-title" onclick="toggleSection('pending')">
+                            <td colspan="7" class="section-title" >
                                 <div class="openClose">
                                     <img src="../assets/Triangle.png" alt="" class="open">
                                     <img src="../assets/left.png" alt="" class="close">
                                 </div>
-                                Quản lý dữ liệu khách hàng
+                                <div class="mission">Quản lý dữ liệu khách hàng </div>
                             </td>
                         </tr>
                         <!-- Section pending -->
@@ -108,11 +139,24 @@
 
 
 
-
     <!-- CẬP NHẬT TRẠNG THÁI -->
-     
+    <div class="updateStatus">  
+       <div class="updateStatus2">    
+            <div class="titleStatus">   
+                <p>Cập nhật trạng thái</p>
+                <i class="fa-solid fa-x" id="outEditProject"></i>
+            </div>
+            <div class="notification">   
+                <p>Xác nhận cập nhật trạng thái nhiệm vụ</p>
+            </div>
+            <div class="functionEnd">   
+                <button id="cancel">Hủy</button>
+                <button id="confirm">Xác nhận</button>
+            </div>
+       </div>
+    </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../js/personalMission.js"></script>
 </body>
 

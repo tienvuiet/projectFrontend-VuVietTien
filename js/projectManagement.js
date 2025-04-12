@@ -8,16 +8,7 @@ const projects = [
                             và
                             quản lý sản phẩm`,
     members: [
-      // {
-      //   userId: 1,
-      //   email:  `annguyen@gmail.com`,
-      //   role: "Project owner",
-      // },
-      // {
-      //   userId: 2,
-      //   email: `bachnguyen@gmail.com`,
-      //   role: "Frontend developer",
-      // },
+
     ]
   },
   {

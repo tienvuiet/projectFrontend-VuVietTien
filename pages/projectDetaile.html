@@ -73,9 +73,9 @@
                             </div>
                         </div>
                         <div class="search">
-                            <select name="" id="">
+                            <select name="" id="arrange tasks">
                                 <option value="">Xắp xếp theo</option>
-                                <option value="">Tên</option>
+                                <option value="Hạn chót">Hạn chót</option>
                             </select>
                             <input type="text" placeholder="Tìm kiếm nhiệm vụ" id="searchTask">
                         </div>
@@ -188,8 +188,10 @@
                 </select>
                 <label for="">Ngày bắt đầu</label>
                 <input type="date" id="inputAssignDate">
+                <p id="inputAssignDate2">Ngày bắt đầu phải lớn hơn ngày hiện tại</p>
                 <label for="">Hạn cuối</label>
                 <input type="date" id="inputDueDate">
+                <p  id="inputDueDate2">Hạn chót phải lớn hơn ngày bắt đầu</p>
                 <label for="">Độ ưu tiên</label>
                 <select id="inputPriority">
                     <option value="">Chọn độ ưu tiên</option>
