@@ -725,6 +725,49 @@ document.getElementById("searchTask").addEventListener("input", function (event)
 
 
 
+
+
+
+
+
+// XẮP XẾP NHIỆM VỤ THEO HẠN CHÓT
+// Lắng nghe sự thay đổi trong chọn sắp xếp
+document.getElementById("arrange tasks").addEventListener("change", function (event) {
+    const selectedOption = event.target.value;
+
+    // Nếu chọn sắp xếp theo "Hạn chót"
+    if (selectedOption === "Hạn chót") {
+        sortTasksByDueDate(); // Gọi hàm sắp xếp theo hạn chót
+    }
+});
+
+// Hàm sắp xếp các nhiệm vụ theo ngày tháng hạn chót từ lớn đến bé
+function sortTasksByDueDate() {
+    // Lấy dữ liệu của dự án hiện tại từ localStorage
+    let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+    
+    // Lấy danh sách tất cả nhiệm vụ từ localStorage
+    let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+    
+    // Lọc chỉ lấy nhiệm vụ thuộc về dự án hiện tại (idProjectManagement === projectManagement.id)
+    let filteredTasks = tasksMission.filter(task => task.idProjectManagement === projectManagement.id);
+    
+    // Sắp xếp các nhiệm vụ theo ngày tháng hạn chót (từ lớn đến bé)
+    filteredTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    // Cập nhật lại bảng hiển thị sau khi sắp xếp
+    updateTable(filteredTasks);
+}
+
+
+
+
+
+
+
+
+
+
 // ĐĂNG XUẤT
 document.getElementById("logOut").addEventListener("click", function (event) {
     event.preventDefault();
