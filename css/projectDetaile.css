@@ -220,6 +220,15 @@ footer div {
     gap: 0px;
 }
 
+
+.position p {
+    max-width: 100px; /* Giới hạn độ dài */
+    overflow: hidden; /* Ẩn phần văn bản vượt quá */
+    white-space: nowrap; /* Không cho phép văn bản xuống dòng */
+    text-overflow: ellipsis; /* Thêm dấu '...' khi văn bản dài quá */
+    text-align: left;
+}
+
 .position p:nth-child(1) {
     font-weight: 500;
     margin: 0;
@@ -770,10 +779,13 @@ footer div {
 .role {
     font-size: 12px;
     border: 0.5px solid #DEE2E6;
-    width: 148.56px;
+    width: 112.56px;
     height: 26px;
     display: flex;
     align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .garbageShow32 {

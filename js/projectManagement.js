@@ -20,40 +20,67 @@ const projects = [
                             và
                             quản lý sản phẩm`,
     members: [
-      {
-        userId: 1,
-        email:  `annguyen@gmail.com`,
-        role: "Project owner",
-      },
-      {
-        userId: 2,
-        email:  `annguyen@gmail.com`,
-        role: "Frontend developer",
-      },
+   
     ]
   },
   {
     id: 3,
-    projectName: 'Phát triển ứng dụng di động',
+    projectName: 'Quản lý dự liễu khách hàng',
     ownerId: 1,
     description: `Dự án nhằm phát triển một nền tảng thương mại điện tử với các tính năng như giỏ hàng, thanh
                             toán
                             và
                             quản lý sản phẩm`,
     members: [
-      {
-        userId: 1,
-        email:  `annguyen@gmail.com`,
-        role: "Project owner",
-      },
-      {
-        userId: 2,
-        email:  `annguyen@gmail.com`,
-        role: "Frontend developer",
-      },
+    
     ]
   },
 ];
+
+
+
+
+
+// Trước khi làm bất kỳ thao tác nào liên quan đến projectManagement, bạn nên kiểm tra và khôi phục dữ liệu nếu cần
+let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+
+// Kiểm tra nếu projectManagement không tồn tại hoặc không có thuộc tính 'members'
+if (!projectManagement) {
+
+  // Khôi phục đối tượng projectManagement với dữ liệu mặc định nếu không tồn tại
+  projectManagement = {
+    id: null,
+    projectName: '',
+    description: '',
+    ownerId: null,
+    members: []  // Khởi tạo empty array cho members nếu không có
+  };
+
+  // Lưu lại đối tượng mặc định vào localStorage
+  localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
+} else {
+  // Nếu projectManagement đã tồn tại, kiểm tra nếu thuộc tính members có sẵn
+  if (!projectManagement.members) {
+    console.log("Không có thuộc tính 'members'. Đang khởi tạo...");
+    
+    // Khởi tạo lại 'members' nếu không có
+    projectManagement.members = [];
+
+    // Lưu lại dữ liệu cập nhật vào localStorage
+    localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
+  }
+}
+
+// Tiến hành các thao tác với projectManagement và projectManagement.members
+console.log(projectManagement);
+
+// Đoạn mã này có thể được thêm vào bất kỳ chỗ nào bạn muốn đảm bảo dữ liệu đã được khôi phục và hợp lệ trước khi sử dụng.
+
+
+
+
+
+
 
 let addProject = document.getElementById("addProject");
 let editingProjectId = null;
@@ -218,7 +245,7 @@ document.getElementById("save").addEventListener("click", function (event) {
     description2.style.visibility = "visible";
     projectDescriptionInput.style.border = "1px solid red";
     return;
-  } else if (projectDescription.length < 8 || projectDescription.length > 250) {
+  } else if (projectDescription.length < 5 || projectDescription.length > 250) {
     descriptionLengthError.style.visibility = "visible";
     projectDescriptionInput.style.border = "1px solid red";
     return;
@@ -502,6 +529,14 @@ document.getElementById("logOut").addEventListener("click", function (event) {
     }
   });
 });
+
+
+
+
+
+
+
+// MÀU THẺ A
 
 
 

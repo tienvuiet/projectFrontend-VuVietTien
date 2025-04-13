@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // THÊM THÀNH VIÊN
-// THÊM THÀNH VIÊN
+// Xử lý chức năng thêm thành viên
 document.getElementById("add3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -69,14 +69,14 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
         emailFail.style.visibility = "hidden";
         document.getElementById("emailMember").style.border = "";
 
-        // ✅ Kiểm tra định dạng @gmail.com
+        // Kiểm tra định dạng @gmail.com
         if (!newEmail.endsWith("@gmail.com")) {
             document.querySelector(".addMember").style.display = "none"; // Ẩn modal trước khi báo lỗi
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Email must be in @gmail.com format!",
-                footer: '<a href="#">Why do I have this issue?</a>'
+                text: "Email phải có định dạng @gmail.com!",
+                footer: '<a href="#">Vì sao tôi gặp lỗi này?</a>'
             }).then(() => {
                 document.querySelector(".addMember").style.display = "flex"; // Mở lại sau alert
             });
@@ -105,9 +105,10 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
         document.getElementById("role").style.border = "";
     }
 
-    // Kiểm tra trùng email
+    // Kiểm tra trùng email chỉ trong cùng một dự án
     const duplicateEmail = projectManagement.members.some(member =>
-        member.email.toLowerCase() === newEmail.toLowerCase()
+        member.email.toLowerCase() === newEmail.toLowerCase() &&
+        member.idProjectDetaile === projectManagement.id // Chỉ kiểm tra email trong dự án hiện tại
     );
 
     if (duplicateEmail) {
@@ -126,7 +127,8 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
     let newMember = {
         userId: newUserId,
         email: newEmail,
-        role: newRole
+        role: newRole,
+        idProjectDetaile: projectManagement.id, // Dùng id của dự án hiện tại
     };
 
     projectManagement.members.push(newMember);
@@ -218,6 +220,7 @@ document.getElementById("saveShow4").addEventListener("click", function (event) 
 
 
 // HIỂN THỊ THÀNH VIÊN TRONG BẢNG
+// HIỂN THỊ THÀNH VIÊN TRONG BẢNG
 function showTableMember() {
     let tableMember = document.querySelector(".show30");
     tableMember.innerHTML = ""; // Xóa bảng cũ
@@ -225,7 +228,10 @@ function showTableMember() {
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
     // Lặp qua mảng members và hiển thị thông tin
 
-    projectManagement.members.forEach((member) => {
+    // Lọc thành viên có idProjectDetaile trùng với projectManagement.id
+    let filteredMembers = projectManagement.members.filter(member => member.idProjectDetaile === projectManagement.id);
+
+    filteredMembers.forEach((member) => {
         let avartaName = member.email.split('@')[0]; // Lấy phần trước dấu '@' trong email
         let avarta = member.email.slice(0, 2).toUpperCase(); // Lấy 2 ký tự đầu làm avatar
         let mailMember = member.email;
@@ -261,7 +267,15 @@ function avatarMember() {
         addAvartarMember.style.display = "none"; // Ẩn phần tử nếu không có thành viên
         return;
     }
-    let membersToShow = projectManagement.members.slice(0, 2);
+
+    // Lọc ra các thành viên có idProjectDetaile trùng với projectManagement.id
+    let membersToShow = projectManagement.members.filter(member => member.idProjectDetaile === projectManagement.id).slice(0, 2);
+
+    // Kiểm tra nếu không có thành viên hợp lệ
+    if (membersToShow.length === 0) {
+        addAvartarMember.style.display = "none"; // Ẩn nếu không có thành viên phù hợp
+        return;
+    }
 
     addAvartarMember.style.display = "flex";
 
@@ -283,7 +297,7 @@ function avatarMember() {
         addAvartarMember.innerHTML += addCartMember; // Thêm thành viên vào danh sách
     });
 }
-avatarMember()
+avatarMember();
 
 
 
@@ -432,8 +446,11 @@ if (projectManagement && projectManagement.members) {
     // Lấy phần tử <select> để thêm các lựa chọn
     const selectElement = document.getElementById("inputPersonInCharge");
 
-    // Duyệt qua các thành viên và tạo các option tương ứng
-    projectManagement.members.forEach(member => {
+    // Lọc các thành viên có idProjectDetaile trùng với projectManagement.id
+    const membersToShow = projectManagement.members.filter(member => member.idProjectDetaile === projectManagement.id);
+
+    // Duyệt qua các thành viên đã lọc và tạo các option tương ứng
+    membersToShow.forEach(member => {
         const option = document.createElement("option");
         let avartaName = member.email.split('@')[0];
 
@@ -442,8 +459,6 @@ if (projectManagement && projectManagement.members) {
         selectElement.appendChild(option); // Thêm option vào <select>
     });
 }
-
-
 
 
 // SỰ KIỆN LƯU
@@ -466,10 +481,27 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
 
     const currentProject = JSON.parse(localStorage.getItem("projectManagement"));
 
-    // Reset thông báo lỗi trước khi kiểm tra
-    document.getElementById("inputAssignDate2").style.visibility = "hidden";
-    document.getElementById("inputDueDate2").style.visibility = "hidden";
-    document.getElementById("updateTaskFail").style.visibility = "hidden";
+    // Kiểm tra không được để trống
+    if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
+        // Ẩn form chỉnh sửa
+        modalErase.style.display = "none";
+
+        // Hiển thị thông báo lỗi
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Do not leave any fields blank!",
+            footer: '<a href="#">Omg?</a>'
+        }).then((result) => {
+            // Khi người dùng nhấn OK trong thông báo lỗi
+            if (result.isConfirmed) {
+                // Hiển thị lại form chỉnh sửa
+                modalErase.style.display = "flex";
+            }
+        });
+
+        return; // Dừng lại không tiếp tục xử lý
+    }
 
     // Kiểm tra trùng tên
     const isDuplicateName = tasksMission.some(task =>
@@ -478,17 +510,6 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     );
     if (isDuplicateName) {
         document.getElementById("updateTaskFail").style.visibility = "visible";
-        return;
-    }
-
-    // Kiểm tra không được để trống
-    if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Không được để trống bất kỳ trường nào!",
-            footer: '<a href="#">Vì sao tôi gặp lỗi này?</a>'
-        });
         return;
     }
 
@@ -566,6 +587,13 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     const filteredTasks = tasksMission.filter(task => task.idProjectManagement === currentProject.id);
     updateTable(filteredTasks);
 });
+
+
+
+
+
+
+
 
 function toggleSection(section) {
     const statusMap = {
@@ -752,7 +780,7 @@ document.getElementById("logOut").addEventListener("click", function (event) {
 
 
 
-//HIỂN THỊ CÁC NHIỆM VỤ RIÊNG BIỆT CỦA TỪNG PROJECT
+// HIỂN THỊ CÁC NHIỆM VỤ RIÊNG BIỆT CỦA TỪNG PROJECT
 window.addEventListener("DOMContentLoaded", function () {
     const project = JSON.parse(localStorage.getItem("projectManagement"));
     const allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -762,6 +790,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // Cập nhật bảng hoặc hiển thị danh sách nhiệm vụ
     updateTable(filteredTasks); // Nếu bạn đã có sẵn hàm updateTable như bạn dùng ở các nơi khác
+
+    // Hiển thị thành viên của dự án
+    showTableMember(); // Hiển thị thành viên theo đúng dự án
 });
+
+
 
 

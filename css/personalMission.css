@@ -430,7 +430,9 @@ td:nth-child(6){
 }
 
 
-
+.swal2-actions{
+  gap: 10px;
+}
 
 
 /* Mặc định ẩn các phần tử nhiệm vụ
