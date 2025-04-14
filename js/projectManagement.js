@@ -20,7 +20,7 @@ const projects = [
                             và
                             quản lý sản phẩm`,
     members: [
-   
+
     ]
   },
   {
@@ -32,7 +32,7 @@ const projects = [
                             và
                             quản lý sản phẩm`,
     members: [
-    
+
     ]
   },
 ];
@@ -41,40 +41,31 @@ const projects = [
 
 
 
-// Trước khi làm bất kỳ thao tác nào liên quan đến projectManagement, bạn nên kiểm tra và khôi phục dữ liệu nếu cần
+//  Kiểm tra và khôi phục dữ liệu 
 let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
 
 // Kiểm tra nếu projectManagement không tồn tại hoặc không có thuộc tính 'members'
 if (!projectManagement) {
-
   // Khôi phục đối tượng projectManagement với dữ liệu mặc định nếu không tồn tại
   projectManagement = {
     id: null,
     projectName: '',
     description: '',
     ownerId: null,
-    members: []  // Khởi tạo empty array cho members nếu không có
+    members: [],
   };
-
-  // Lưu lại đối tượng mặc định vào localStorage
   localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
 } else {
   // Nếu projectManagement đã tồn tại, kiểm tra nếu thuộc tính members có sẵn
   if (!projectManagement.members) {
-    console.log("Không có thuộc tính 'members'. Đang khởi tạo...");
-    
     // Khởi tạo lại 'members' nếu không có
     projectManagement.members = [];
-
     // Lưu lại dữ liệu cập nhật vào localStorage
     localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
   }
 }
 
-// Tiến hành các thao tác với projectManagement và projectManagement.members
-console.log(projectManagement);
 
-// Đoạn mã này có thể được thêm vào bất kỳ chỗ nào bạn muốn đảm bảo dữ liệu đã được khôi phục và hợp lệ trước khi sử dụng.
 
 
 
@@ -87,6 +78,8 @@ let editingProjectId = null;
 // editingPeojectId biến để nhận biết mình thêm hay sửa 
 let currentPage = 1; // Trang hiện tại
 const projectsPerPage = 7; // Số lượng dự án mỗi trang
+
+
 
 // Hàm hiển thị các dự án theo trang
 function showProject() {
@@ -140,7 +133,7 @@ function updatePagination(totalProjects) {
   const prevButton = document.createElement("button");
   prevButton.innerHTML = "&#60;";
   prevButton.id = "prevPage";
-  prevButton.disabled = currentPage === 1; // Disable button if we are on the first page
+  prevButton.disabled = currentPage === 1; // Nút vô hiệu hóa nếu chúng ta đang ở trang đầu tiên
   prevButton.addEventListener("click", function () {
     if (currentPage > 1) {
       currentPage--;
@@ -167,7 +160,7 @@ function updatePagination(totalProjects) {
   const nextButton = document.createElement("button");
   nextButton.innerHTML = "&#62;";
   nextButton.id = "nextPage";
-  nextButton.disabled = currentPage === totalPages; // Disable button if we are on the last page
+  nextButton.disabled = currentPage === totalPages; //Nút vô hiệu hóa nếu chúng ta đang ở trang cuối cùng
   nextButton.addEventListener("click", function () {
     if (currentPage < totalPages) {
       currentPage++;
@@ -177,9 +170,6 @@ function updatePagination(totalProjects) {
   pagination.appendChild(nextButton);
 }
 
-
-// Gọi hàm để hiển thị các dự án ban đầu
-// showProject();
 
 
 
@@ -264,6 +254,7 @@ document.getElementById("save").addEventListener("click", function (event) {
     // Thêm mới dự án và gán ownerId là người dùng hiện tại
     projects.push({
       id: projects.length > 0 ? projects[projects.length - 1].id + 1 : 1,
+      //nếu không rỗng thì tăng dự án  hiện tại lên 1, còn rỗng thì đây là dự án đầu tiêntiên
       projectName: upDateProjectName,
       description: projectDescription,
       ownerId: currentUserId,  // Gán ownerId cho dự án là ID người dùng hiện tại
@@ -299,8 +290,9 @@ addProject.addEventListener("click", function (event) {
     event.preventDefault();
 
     let row = event.target.closest('tr');
+    // Tìm dòng cha của nút sửa (tr) và lấy ID dự án từ ô có class "projectID"
     let projectId = parseInt(row.querySelector('.projectID').innerText);
-
+    //tìm được cột có class="projectID", innerText lấy nội dung của nó là parseInt chuyển từ chuỗi sang số nguyênn
     // Tìm dự án cần sửa
     const project = projects.find(p => p.id === projectId);
     if (project) {
@@ -325,11 +317,6 @@ document.getElementById("projectSearch").addEventListener("input", function () {
   let searchQuery = this.value.toLowerCase(); // Lấy giá trị tìm kiếm và chuyển thành chữ thường
   let addProject = document.getElementById("addProject");
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
-  // if (!currentUser) {
-  //   window.location.href = "../pages/login.html"; // Nếu không có người dùng đăng nhập, chuyển hướng về trang login
-  //   return;
-  // }
 
   let currentUserId = currentUser.id;
 
@@ -364,6 +351,7 @@ addProject.addEventListener("click", function (event) {
     event.preventDefault();
 
     let row = event.target.closest('tr');
+    // n lấy toàn bộ dòng (<tr>) chứa nút "Xóa".
     let projectId = parseInt(row.querySelector('.projectID').innerText);
     // thư viện sweetalert2 không phải cop chat đâu
     Swal.fire({
@@ -380,9 +368,9 @@ addProject.addEventListener("click", function (event) {
         // If user confirmed deletion
         const index = projects.findIndex(project => project.id === projectId);
         if (index !== -1) {
-          projects.splice(index, 1); // Remove the project from the array
+          projects.splice(index, 1); //Xóa dự án khỏi mảng
           localStorage.setItem("projects", JSON.stringify(projects));
-          showProject(); // Re-render the project table
+          showProject();// ht lại bảng dự án
 
           Swal.fire({
             title: "Deleted!",
@@ -405,7 +393,7 @@ addProject.addEventListener("click", function (event) {
 
     let row = event.target.closest('tr');
     let projectId = parseInt(row.querySelector('.projectID').innerText);
-
+    //chọn cái dòng dó ở cái trên, sau đó tìm cái ô có class="projectID" và lấy nội dung của nó
     // Tìm dự án cần xem chi tiết từ localStorage
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
     let projects = JSON.parse(localStorage.getItem("projects")) || [];
@@ -413,7 +401,7 @@ addProject.addEventListener("click", function (event) {
 
     if (project) {
       console.log(project);
-      
+
       // Lưu thông tin dự án vào localStorage với tên 'projectManagement'
       localStorage.setItem("projectManagement", JSON.stringify({
         id: project.id,
@@ -441,9 +429,9 @@ addProject.addEventListener("click", function (event) {
 
 
 // CHUYỂN HƯỚNG SANG TRANG NHIỆM VỤ CỦA TÔI 
-document.getElementById("personalTaskPage").addEventListener("click", function(event){
-    event.preventDefault();
-    window.location.href = "../pages/personalMission.html";
+document.getElementById("personalTaskPage").addEventListener("click", function (event) {
+  event.preventDefault();
+  window.location.href = "../pages/personalMission.html";
 })
 
 
@@ -517,7 +505,6 @@ document.getElementById("logOut").addEventListener("click", function (event) {
       }).then(() => {
         // Xóa thông tin đăng nhập trước đóđó
         localStorage.removeItem("currentUser");
-        // Chuyển hướng đến trang đăng nhập (login.html)
         window.location.href = "../pages/login.html";
       });
     } else if (result.dismiss === Swal.DismissReason.cancel) {

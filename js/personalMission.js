@@ -45,9 +45,9 @@ document.querySelector(".mission1").addEventListener("click", function(event) {
   show1.forEach(function(row) {
     // Nếu phần tử đang ẩn, hiển thị nó, ngược lại thì ẩn đi
     if (row.style.display === "none") {
-      row.style.display = "table-row";  // Hiển thị lại phần tử
+      row.style.display = "table-row";  
     } else {
-      row.style.display = "none";  // Ẩn phần tử
+      row.style.display = "none";  
     }
   });
 });

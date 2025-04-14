@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// THÊM THÀNH VIÊN
-// Xử lý chức năng thêm thành viên
+// THÊM THÀNH VIÊN- LƯU THÀNH VIÊN
 document.getElementById("add3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -75,8 +74,8 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Email phải có định dạng @gmail.com!",
-                footer: '<a href="#">Vì sao tôi gặp lỗi này?</a>'
+                text: "Email must be in @gmail.com format!!",
+                footer: '<a href="#">Why i get this error?</a>'
             }).then(() => {
                 document.querySelector(".addMember").style.display = "flex"; // Mở lại sau alert
             });
@@ -220,7 +219,6 @@ document.getElementById("saveShow4").addEventListener("click", function (event) 
 
 
 // HIỂN THỊ THÀNH VIÊN TRONG BẢNG
-// HIỂN THỊ THÀNH VIÊN TRONG BẢNG
 function showTableMember() {
     let tableMember = document.querySelector(".show30");
     tableMember.innerHTML = ""; // Xóa bảng cũ
@@ -233,6 +231,7 @@ function showTableMember() {
 
     filteredMembers.forEach((member) => {
         let avartaName = member.email.split('@')[0]; // Lấy phần trước dấu '@' trong email
+        //split chia email thành 2 phần, lấy phần đầu tiên làm tên hiển thị
         let avarta = member.email.slice(0, 2).toUpperCase(); // Lấy 2 ký tự đầu làm avatar
         let mailMember = member.email;
         let addTableMember = `
@@ -286,11 +285,11 @@ function avatarMember() {
         let addCartMember = `
         <div class="user">
             <div class="user1">
-                <p>${avarta}</p> <!-- Hiển thị avatar từ email -->
+                <p>${avarta}</p> 
             </div>
             <div class="position">
-                <p>${avartaName}</p> <!-- Hiển thị tên người dùng từ email -->
-                <p>${member.role}</p> <!-- Hiển thị vai trò của thành viên -->
+                <p>${avartaName}</p>
+                <p>${member.role}</p> 
             </div>
         </div>
         `;
@@ -378,19 +377,11 @@ function handleEditTask(event) {
     event.preventDefault();
     let taskRow = event.target.closest("tr");
 
-    if (!taskRow) {
-        console.error("Không tìm thấy dòng nhiệm vụ");
-        return;
-    }
-
     const taskId = taskRow.getAttribute("data-task-id");
+    //cụ thể là lấy id của tasks tương ứng 
     const allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     const taskData = allTasks.find(task => task.id === parseInt(taskId));
 
-    if (!taskData) {
-        console.error("Không tìm thấy dữ liệu nhiệm vụ trong localStorage");
-        return;
-    }
 
     document.getElementById("updateTask").value = taskData.taskName;
     document.getElementById("inputPersonInCharge").value = taskData.personInCharge.replace("@gmail.com", "");
@@ -413,12 +404,6 @@ document.addEventListener('click', function (event) {
     if (event.target.matches('.deleteMission')) {
         const taskRow = event.target.closest('tr');
         const taskId = taskRow.dataset.taskId;
-
-        if (!taskId) {
-            console.error('Không tìm thấy taskId.');
-            return;
-        }
-
         Swal.fire({
             icon: "warning",
             title: "Oops...",
@@ -514,8 +499,10 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     }
 
     // Kiểm tra ngày bắt đầu lớn hơn ngày hiện tại
+    //new Date(); tạo ra ngày tháng năm giờ phút giây hiện tại
+    //setHours(0, 0, 0, 0); đặt giờ phút giây về 0 để so sánh ngày mà không cần quan tâm đến giờ phút giây
     const today = new Date();
-    const startDate = new Date(assignDate);
+    const startDate = new Date(assignDate); 
     today.setHours(0, 0, 0, 0);
     startDate.setHours(0, 0, 0, 0);
 
@@ -538,6 +525,7 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
         const taskIndex = tasksMission.findIndex(task => task.id === parseInt(editingTaskId));
         if (taskIndex !== -1) {
             tasksMission[taskIndex] = {
+                //...Spread operator sao chép tất cả các thuộc tính và giá trị của nhiệm vụ hiện tại trong mảng tasksMission[taskIndex] vào đối tượng mới đang tạo. 
                 ...tasksMission[taskIndex],
                 taskName,
                 assigneeId: currentProject.ownerId,
@@ -594,7 +582,7 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
 
 
 
-
+//đóng/mở các dòng nhiệm vụ trong bảng và thay đổi hiển thị icon cho các trạng thái nhiệm vụ.
 function toggleSection(section) {
     const statusMap = {
         todo: "To do",
@@ -609,7 +597,7 @@ function toggleSection(section) {
     if (rows.length === 0) return; // Không có nhiệm vụ thì thoát
 
     const isHidden = rows[0].style.display === "none" || rows[0].style.display === "";
-
+    //kiểm tra dòng đầu tiên có ẩn không, hoặc chưa thiết lập display thì mặc định là ẩn=>true
     // Đóng/mở các dòng nhiệm vụ
     rows.forEach(row => {
         row.style.display = isHidden ? "table-row" : "none";
@@ -653,7 +641,7 @@ function updateTable(tasksMission) {
 </tr>`;
 
         const section = sections[task.status];
-        section.insertAdjacentHTML("afterend", taskRow); // chèn ngay sau dòng tiêu đề section
+        section.insertAdjacentHTML("afterend", taskRow); // insertAdjacentHTML("afterend"):chèn ngay sau dòng tiêu đề section
     });
 }
 function formatDate(dateStr) {
@@ -702,7 +690,7 @@ document.getElementById("task3Cancel").addEventListener("click", function (event
 
 
 
-// TÌM KIẾM NHIỆM VỤ 
+// TÌM KIẾM NHIỆM VỤ : theo tên hoặc người phụ trách 
 document.getElementById("searchTask").addEventListener("input", function (event) {
     event.preventDefault();
     const searchTerm = event.target.value.toLowerCase(); // Lấy từ khoá tìm kiếm
@@ -712,7 +700,7 @@ document.getElementById("searchTask").addEventListener("input", function (event)
     tasks.forEach(task => {
         const taskName = task.children[0].innerText.toLowerCase(); // Tên nhiệm vụ
         const personInCharge = task.children[1].innerText.toLowerCase(); // Người phụ trách
-
+//duyệt qua mảng task lấy phần tử đầu tiên là nhiệm vụ phần tử thứ 2 là người phụ trách 
         // Nếu taskName hoặc personInCharge có chứa từ khoá tìm kiếm thì hiển thị, ngược lại ẩn
         if (taskName.includes(searchTerm) || personInCharge.includes(searchTerm)) {
             task.style.display = "table-row";
@@ -732,7 +720,7 @@ document.getElementById("searchTask").addEventListener("input", function (event)
 
 // XẮP XẾP NHIỆM VỤ THEO HẠN CHÓT
 // Lắng nghe sự thay đổi trong chọn sắp xếp
-document.getElementById("arrange tasks").addEventListener("change", function (event) {
+document.getElementById("arrangeTasks").addEventListener("change", function (event) {
     const selectedOption = event.target.value;
 
     // Nếu chọn sắp xếp theo "Hạn chót"
@@ -832,10 +820,10 @@ window.addEventListener("DOMContentLoaded", function () {
     const filteredTasks = allTasks.filter(task => task.idProjectManagement === project.id);
 
     // Cập nhật bảng hoặc hiển thị danh sách nhiệm vụ
-    updateTable(filteredTasks); // Nếu bạn đã có sẵn hàm updateTable như bạn dùng ở các nơi khác
+    updateTable(filteredTasks); 
 
     // Hiển thị thành viên của dự án
-    showTableMember(); // Hiển thị thành viên theo đúng dự án
+    showTableMember(); 
 });
 
 

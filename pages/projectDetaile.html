@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="search">
-                            <select name="" id="arrange tasks">
+                            <select name="" id="arrangeTasks">
                                 <option value="">Xắp xếp theo</option>
                                 <option value="Hạn chót">Hạn chót</option>
                                 <option value="Độ ưu tiên">Độ ưu tiên</option>
@@ -109,6 +109,18 @@
                             </div>
                             To do</td>
                         </tr>
+                        <!-- <tr class="task-row" data-task-id="${task.id}" data-status="${task.status}">
+                            <td style=" text-align: left; padding-left: 20px;">${task.taskName}</td>
+                            <td>${task.personInCharge.replace("@gmail.com", "")}</td>
+                            <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
+                            <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.assignDate)}</td>
+                            <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.dueDate)}</td>
+                            <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
+                            <td>
+                                <button class="editMission">Sửa</button>
+                                <button class="deleteMission">Xóa</button>
+                            </td>
+                        </tr>`; -->
                         <!-- Section todo -->
                         <tr class="todo-section task-section" style="display: table-row-group;"></tr>
                       

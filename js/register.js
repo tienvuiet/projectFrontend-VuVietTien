@@ -73,7 +73,7 @@ document.querySelector(".formRegister").onsubmit = function (event) {
         // Tạo ID mới cho người dùng
         let newUserId = 1; // Mặc định ID là 1 nếu chưa có user nào trong localStorage
         
-        // Lấy danh sách người dùng hiện tại trong localStorage (nếu có)
+        // Lấy danh sách người dùng hiện tại trong localStorage 
         users = JSON.parse(localStorage.getItem("users")) || [];
 
         // Nếu đã có người dùng, lấy ID lớn nhất và cộng 1 để tạo ID mới
@@ -89,9 +89,8 @@ document.querySelector(".formRegister").onsubmit = function (event) {
             password: passwordRegister,
         };
 
-        // Thêm người dùng mới vào danh sách và lưu vào localStorage
         users.push(user);
-        localStorage.setItem("users", JSON.stringify(users)); // Lưu lại danh sách người dùng
+        localStorage.setItem("users", JSON.stringify(users)); 
 
         // Lưu thông tin người dùng mới vào `currentUser` để đăng nhập
         localStorage.setItem("currentUser", JSON.stringify(user));  // Lưu thông tin người dùng vào localStorage
@@ -103,10 +102,9 @@ document.querySelector(".formRegister").onsubmit = function (event) {
             icon: "success",
             draggable: true
         }).then(() => {
-            // Thêm setTimeout để đảm bảo chuyển hướng xảy ra sau khi thông báo đã hiển thị
             setTimeout(function () {
-                window.location.href = "../pages/projectManagement.html"; // Chuyển hướng đến trang projectManagement
-            }, 200); // Đợi 500ms trước khi chuyển hướng
+                window.location.href = "../pages/projectManagement.html"; 
+            }, 200); 
         });
     }
 };
