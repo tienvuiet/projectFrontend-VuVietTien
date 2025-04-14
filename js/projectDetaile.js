@@ -361,7 +361,7 @@ document.getElementById("addMission").addEventListener("click", function (event)
 
 // Gắn sự kiện vào tbody cha duy nhất (showTasksInTable)
 document.querySelector(".showTasksInTable").addEventListener("click", function (event) {
-    if (event.target.matches(".editMission"))  {
+    if (event.target.matches(".editMission")) {
         handleEditTask(event);
     } else if (event.target.matches(".deleteMission")) {
         handleDeleteTask(event);
@@ -465,7 +465,13 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     const progress = document.getElementById("inputProgress").value.trim();
 
     const currentProject = JSON.parse(localStorage.getItem("projectManagement"));
-
+    // Ẩn tất cả các thông báo lỗi trước khi kiểm tra
+    document.getElementById("updateTaskFail").style.visibility = "hidden";
+    document.getElementById("emailMemberFail").style.visibility = "hidden";
+    document.getElementById("roleFail").style.visibility = "hidden";
+    document.getElementById("emailFail").style.visibility = "hidden";
+    document.getElementById("inputAssignDate2").style.visibility = "hidden";
+    document.getElementById("inputDueDate2").style.visibility = "hidden";
     // Kiểm tra không được để trống
     if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
         // Ẩn form chỉnh sửa
@@ -502,7 +508,7 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     //new Date(); tạo ra ngày tháng năm giờ phút giây hiện tại
     //setHours(0, 0, 0, 0); đặt giờ phút giây về 0 để so sánh ngày mà không cần quan tâm đến giờ phút giây
     const today = new Date();
-    const startDate = new Date(assignDate); 
+    const startDate = new Date(assignDate);
     today.setHours(0, 0, 0, 0);
     startDate.setHours(0, 0, 0, 0);
 
@@ -700,7 +706,7 @@ document.getElementById("searchTask").addEventListener("input", function (event)
     tasks.forEach(task => {
         const taskName = task.children[0].innerText.toLowerCase(); // Tên nhiệm vụ
         const personInCharge = task.children[1].innerText.toLowerCase(); // Người phụ trách
-//duyệt qua mảng task lấy phần tử đầu tiên là nhiệm vụ phần tử thứ 2 là người phụ trách 
+        //duyệt qua mảng task lấy phần tử đầu tiên là nhiệm vụ phần tử thứ 2 là người phụ trách 
         // Nếu taskName hoặc personInCharge có chứa từ khoá tìm kiếm thì hiển thị, ngược lại ẩn
         if (taskName.includes(searchTerm) || personInCharge.includes(searchTerm)) {
             task.style.display = "table-row";
@@ -733,13 +739,13 @@ document.getElementById("arrangeTasks").addEventListener("change", function (eve
 function sortTasksByDueDate() {
     // Lấy dữ liệu của dự án hiện tại từ localStorage
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-    
+
     // Lấy danh sách tất cả nhiệm vụ từ localStorage
     let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
-    
+
     // Lọc chỉ lấy nhiệm vụ thuộc về dự án hiện tại (idProjectManagement === projectManagement.id)
     let filteredTasks = tasksMission.filter(task => task.idProjectManagement === projectManagement.id);
-    
+
     // Sắp xếp các nhiệm vụ theo ngày tháng hạn chót (từ lớn đến bé)
     filteredTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
 
@@ -820,10 +826,10 @@ window.addEventListener("DOMContentLoaded", function () {
     const filteredTasks = allTasks.filter(task => task.idProjectManagement === project.id);
 
     // Cập nhật bảng hoặc hiển thị danh sách nhiệm vụ
-    updateTable(filteredTasks); 
+    updateTable(filteredTasks);
 
     // Hiển thị thành viên của dự án
-    showTableMember(); 
+    showTableMember();
 });
 
 
