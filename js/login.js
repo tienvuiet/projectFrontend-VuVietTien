@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Xóa trạng thái đăng nhập khi tải trang
     localStorage.removeItem("isLoggedIn");
-
     const clickLogin = document.getElementById("clickLogin");
     if (clickLogin) {
         clickLogin.onclick = function(event) {
@@ -55,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Lưu thông tin người dùng và trạng thái đăng nhập
                     localStorage.setItem("currentUser", JSON.stringify(validUser));
                     localStorage.setItem("isLoggedIn", "true");
-                    window.location.href = "../pages/projectManagement.html"; // Đăng nhập thành công
+                    window.location.href = "../pages/projectManagement.html"; 
                 } else {
                     // Hiển thị lỗi nếu email hoặc mật khẩu sai
                     if (!storedUsers.find(user => user.email === emailLogin)) {
