@@ -303,6 +303,32 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra trạng thái đăng nhập
+            if (localStorage.getItem("isLoggedIn") !== "true") {
+                window.location.href = "../pages/login.html";
+            }
+
+            // Tự động đổi màu thẻ <a> của trang hiện tại
+            const links = document.querySelectorAll(".navEvent2 a");
+            links.forEach(link => {
+                link.classList.remove("active");
+                // Kiểm tra nếu là projectDetaile.html thì kích hoạt #projectManagementPage
+                if (window.location.pathname.includes("projectDetaile.html") && link.id === "projectManagementPage") {
+                    link.classList.add("active");
+                } else if (link.href === window.location.href) {
+                    link.classList.add("active");
+                }
+            });
+
+            // Xử lý đăng xuất
+            document.getElementById("logOut").addEventListener("click", function() {
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("currentUser");
+            });
+        });
+    </script>
 </body>
 
 </html>

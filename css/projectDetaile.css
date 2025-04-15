@@ -862,3 +862,10 @@ table td, table th {
 .openUpdate.active {
     transform: scale(1.4); /* Phóng to khi click */
 }
+
+
+
+
+.navEvent2 a.active {
+    color: red !important;
+}

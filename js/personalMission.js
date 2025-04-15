@@ -1,9 +1,3 @@
-// CHUYỂN SANG TRANG DỰ ÁN     
-document.getElementById("projectManagementPage").addEventListener("click", function(event){
-    event.preventDefault();
-    window.location.href = "../pages/projectManagement.html";
-})
-
 
 
 
@@ -112,3 +106,14 @@ document.getElementById("logOut").addEventListener("click", function (event) {
   
 
 
+
+
+
+
+
+
+// Chuyển sang trang dự án
+document.getElementById("projectManagementPage").addEventListener("click", function(event) {
+    event.preventDefault();
+    window.location.href = "../pages/projectManagement.html";
+});

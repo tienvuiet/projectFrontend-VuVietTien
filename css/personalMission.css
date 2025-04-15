@@ -435,6 +435,10 @@ td:nth-child(6){
 }
 
 
+
+.navEvent2 a.active {
+  color: red !important;
+}
 /* Mặc định ẩn các phần tử nhiệm vụ
 .todo-section, .inProgress-section, .pending-section {
   display: none;

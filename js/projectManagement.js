@@ -208,7 +208,6 @@ document.getElementById("save").addEventListener("click", function (event) {
   } else {
     upDateProjectNameInput.style.border = "";
   }
-
   // Lấy ID người dùng hiện tại
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
@@ -299,33 +298,6 @@ function resetForm() {
 
 
 
-
-
-//HIỂN THỊ CHỈNH SỬA DỰ ÁN
-// addProject.addEventListener("click", function (event) {
-//   if (event.target && event.target.classList.contains("clickFix")) {
-//     event.preventDefault();
-
-//     let row = event.target.closest('tr');
-//     // Tìm dòng cha của nút sửa (tr) và lấy ID dự án từ ô có class "projectID"
-//     let projectId = parseInt(row.querySelector('.projectID').innerText);
-//     //tìm được cột có class="projectID", innerText lấy nội dung của nó là parseInt chuyển từ chuỗi sang số nguyênn
-//     // Tìm dự án cần sửa
-//     const project = projects.find(p => p.id === projectId);
-//     if (project) {
-//       // Gán dữ liệu lên input
-//       document.getElementById("upDateProjectName").value = project.projectName;
-//       document.getElementById("projectDescription").value = project.description || "";
-
-//       // Ghi nhớ ID đang sửa
-//       editingProjectId = projectId;
-
-//       // Hiển thị modal
-//       let modalAddNewEdit = document.querySelector(".modalAddNewEdit");
-//       modalAddNewEdit.style.display = "flex";
-//     }
-//   }
-// });
 
 
 
@@ -562,23 +534,3 @@ document.getElementById("logOut").addEventListener("click", function (event) {
 
 
 
-
-// MÀU THẺ A
-// Lấy URL hiện tại
-// let currentPage = window.location.pathname;
-
-// // Lấy các thẻ <a> và kiểm tra URL để xác định trang hiện tại
-// let links = document.querySelectorAll('a');
-
-// links.forEach(link => {
-//     // So sánh đường dẫn của mỗi thẻ <a> với URL của trang hiện tại
-//     if (currentPage.includes(link.getAttribute('href'))) {
-//         // Thêm class 'active' để thay đổi màu thẻ <a> khi ở trang đó
-//         link.classList.add('active');
-//     }
-// });
-
-
-
-// COMMENT GIẢI THÍCH
-// .target Element mà người dùng bấm hoặc tác động vào

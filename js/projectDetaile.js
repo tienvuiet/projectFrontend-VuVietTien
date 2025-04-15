@@ -22,9 +22,9 @@ function showTitle() {
     if (projectManagement) {
         // Tạo HTML để hiển thị tên và mô tả dự án
         let addcart = `
-            <h2>${projectManagement.projectName}</h2>
-            <p>${projectManagement.description}</p>
-        `;
+                <h2>${projectManagement.projectName}</h2>
+                <p>${projectManagement.description}</p>
+            `;
         addTitle.innerHTML = addcart; // Hiển thị tên và mô tả vào phần tử có class "left2"
     }
 }
@@ -139,6 +139,7 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
     document.getElementById("role").value = "";
 
     avatarMember(); // Cập nhật avatar sau khi thêm
+    updatePersonInChargeOptions();
 });
 
 
@@ -235,20 +236,20 @@ function showTableMember() {
         let avarta = member.email.slice(0, 2).toUpperCase(); // Lấy 2 ký tự đầu làm avatar
         let mailMember = member.email;
         let addTableMember = `
-            <div class="show3">
-                <div class="show31">
-                    <div id="avartaShow31">${avarta}</div>
-                    <div>
-                        <p class="nameShow31">${avartaName}</p>
-                        <p class="emailShow31">${mailMember}</p>
+                <div class="show3">
+                    <div class="show31">
+                        <div id="avartaShow31">${avarta}</div>
+                        <div>
+                            <p class="nameShow31">${avartaName}</p>
+                            <p class="emailShow31">${mailMember}</p>
+                        </div>
+                    </div>
+                    <div class="show32">
+                        <div class="role">${member.role}</div>
+                        <img class="garbageShow32" src="../assets/Trash.png" alt="" class="deleteMember">
                     </div>
                 </div>
-                <div class="show32">
-                    <div class="role">${member.role}</div>
-                    <img class="garbageShow32" src="../assets/Trash.png" alt="" class="deleteMember">
-                </div>
-            </div>
-        `;
+            `;
         tableMember.innerHTML += addTableMember; // Thêm thành viên vào bảng
     });
 }
@@ -283,16 +284,16 @@ function avatarMember() {
         let avarta = member.email.slice(0, 2).toUpperCase(); // Lấy 2 ký tự đầu của email làm avatar
         let avartaName = member.email.split('@')[0]; // Lấy phần trước dấu '@' trong email
         let addCartMember = `
-        <div class="user">
-            <div class="user1">
-                <p>${avarta}</p> 
+            <div class="user">
+                <div class="user1">
+                    <p>${avarta}</p> 
+                </div>
+                <div class="position">
+                    <p>${avartaName}</p>
+                    <p>${member.role}</p> 
+                </div>
             </div>
-            <div class="position">
-                <p>${avartaName}</p>
-                <p>${member.role}</p> 
-            </div>
-        </div>
-        `;
+            `;
         addAvartarMember.innerHTML += addCartMember; // Thêm thành viên vào danh sách
     });
 }
@@ -357,6 +358,8 @@ document.getElementById("addMission").addEventListener("click", function (event)
     document.getElementById("inputDueDate").value = "";
     document.getElementById("inputPriority").value = "";
     document.getElementById("inputProgress").value = "";
+    //Cập nhật danh sách người phụ trách 
+    updatePersonInChargeOptions();
 });
 
 // Gắn sự kiện vào tbody cha duy nhất (showTasksInTable)
@@ -446,8 +449,37 @@ if (projectManagement && projectManagement.members) {
 }
 
 
+
+
+//Cập nhật danh sách người phụ trách 
+function updatePersonInChargeOptions() {
+    const selectElement = document.getElementById("inputPersonInCharge");
+    const projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+
+    // Xóa tất cả các tùy chọn hiện tại
+    selectElement.innerHTML = "";
+
+    // Lọc các thành viên có idProjectDetaile trùng với projectManagement.id
+    const membersToShow = projectManagement.members.filter(
+        member => member.idProjectDetaile === projectManagement.id
+    );
+
+    // Thêm các tùy chọn mới
+    membersToShow.forEach(member => {
+        const option = document.createElement("option");
+        let avartaName = member.email.split('@')[0];
+        option.value = avartaName;
+        option.textContent = avartaName;
+        selectElement.appendChild(option);
+    });
+}
+
+
+
+
 // SỰ KIỆN LƯU
 // ===== SỰ KIỆN LƯU NHIỆM VỤ (ĐÃ GỘP KIỂM TRA NGÀY VÀ HIỆN CẢNH BÁO) =====
+// SỰ KIỆN LƯU
 document.getElementById("task3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -465,6 +497,7 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     const progress = document.getElementById("inputProgress").value.trim();
 
     const currentProject = JSON.parse(localStorage.getItem("projectManagement"));
+
     // Ẩn tất cả các thông báo lỗi trước khi kiểm tra
     document.getElementById("updateTaskFail").style.visibility = "hidden";
     document.getElementById("emailMemberFail").style.visibility = "hidden";
@@ -472,41 +505,36 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
     document.getElementById("emailFail").style.visibility = "hidden";
     document.getElementById("inputAssignDate2").style.visibility = "hidden";
     document.getElementById("inputDueDate2").style.visibility = "hidden";
+
     // Kiểm tra không được để trống
     if (!taskName || !personInCharge || !status || !assignDate || !dueDate || !priority || !progress) {
-        // Ẩn form chỉnh sửa
         modalErase.style.display = "none";
-
-        // Hiển thị thông báo lỗi
         Swal.fire({
             icon: "error",
             title: "Oops...",
             text: "Do not leave any fields blank!",
             footer: '<a href="#">Omg?</a>'
         }).then((result) => {
-            // Khi người dùng nhấn OK trong thông báo lỗi
             if (result.isConfirmed) {
-                // Hiển thị lại form chỉnh sửa
                 modalErase.style.display = "flex";
             }
         });
-
-        return; // Dừng lại không tiếp tục xử lý
+        return;
     }
 
-    // Kiểm tra trùng tên
+    // Kiểm tra trùng tên chỉ với các nhiệm vụ có idProjectManagement trùng với dự án hiện tại
     const isDuplicateName = tasksMission.some(task =>
         task.taskName.trim().toLowerCase() === taskName.toLowerCase() &&
-        task.id !== parseInt(editingTaskId)
+        task.id !== parseInt(editingTaskId) &&
+        task.idProjectManagement === currentProject.id
     );
+
     if (isDuplicateName) {
         document.getElementById("updateTaskFail").style.visibility = "visible";
         return;
     }
 
     // Kiểm tra ngày bắt đầu lớn hơn ngày hiện tại
-    //new Date(); tạo ra ngày tháng năm giờ phút giây hiện tại
-    //setHours(0, 0, 0, 0); đặt giờ phút giây về 0 để so sánh ngày mà không cần quan tâm đến giờ phút giây
     const today = new Date();
     const startDate = new Date(assignDate);
     today.setHours(0, 0, 0, 0);
@@ -526,12 +554,11 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
         return;
     }
 
-    // ===== Nếu hợp lệ thì thêm/sửa nhiệm vụ =====
+    // Nếu hợp lệ thì thêm/sửa nhiệm vụ
     if (editingTaskId) {
         const taskIndex = tasksMission.findIndex(task => task.id === parseInt(editingTaskId));
         if (taskIndex !== -1) {
             tasksMission[taskIndex] = {
-                //...Spread operator sao chép tất cả các thuộc tính và giá trị của nhiệm vụ hiện tại trong mảng tasksMission[taskIndex] vào đối tượng mới đang tạo. 
                 ...tasksMission[taskIndex],
                 taskName,
                 assigneeId: currentProject.ownerId,
@@ -586,8 +613,6 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
 
 
 
-
-
 //đóng/mở các dòng nhiệm vụ trong bảng và thay đổi hiển thị icon cho các trạng thái nhiệm vụ.
 function toggleSection(section) {
     const statusMap = {
@@ -633,18 +658,18 @@ function updateTable(tasksMission) {
 
     tasksMission.forEach(task => {
         const taskRow = `
-<tr class="task-row" data-task-id="${task.id}" data-status="${task.status}">
-    <td style=" text-align: left; padding-left: 20px;">${task.taskName}</td>
-    <td>${task.personInCharge.replace("@gmail.com", "")}</td>
-    <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
-    <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.assignDate)}</td>
-    <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.dueDate)}</td>
-    <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
-    <td>
-        <button class="editMission">Sửa</button>
-        <button class="deleteMission">Xóa</button>
-    </td>
-</tr>`;
+    <tr class="task-row" data-task-id="${task.id}" data-status="${task.status}">
+        <td style=" text-align: left; padding-left: 20px;">${task.taskName}</td>
+        <td>${task.personInCharge.replace("@gmail.com", "")}</td>
+        <td><span class="badge ${getPriorityBadgeClass(task.priority)}">${task.priority}</span></td>
+        <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.assignDate)}</td>
+        <td class="date-cell" style="color: #0D6EFD;">${formatDate(task.dueDate)}</td>
+        <td><span class="badge ${getProgressBadgeClass(task.progress)}">${task.progress}</span></td>
+        <td>
+            <button class="editMission">Sửa</button>
+            <button class="deleteMission">Xóa</button>
+        </td>
+    </tr>`;
 
         const section = sections[task.status];
         section.insertAdjacentHTML("afterend", taskRow); // insertAdjacentHTML("afterend"):chèn ngay sau dòng tiêu đề section
@@ -728,14 +753,33 @@ document.getElementById("searchTask").addEventListener("input", function (event)
 // Lắng nghe sự thay đổi trong chọn sắp xếp
 document.getElementById("arrangeTasks").addEventListener("change", function (event) {
     const selectedOption = event.target.value;
-
-    // Nếu chọn sắp xếp theo "Hạn chót"
     if (selectedOption === "Hạn chót") {
-        sortTasksByDueDate(); // Gọi hàm sắp xếp theo hạn chót
+        sortTasksByDueDate();
+    } else if (selectedOption === "Độ ưu tiên") {
+        sortTasksByPriority();
     }
 });
 
-// Hàm sắp xếp các nhiệm vụ theo ngày tháng hạn chót từ lớn đến bé
+
+//XẮP XẾP THEO ĐỘ ƯU TIÊN 
+function sortTasksByPriority() {
+    let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+    let tasksMission = JSON.parse(localStorage.getItem("tasks")) || [];
+    let filteredTasks = tasksMission.filter(task => task.idProjectManagement === projectManagement.id);
+    const priorityOrder = {
+        "Thấp": 1,
+        "Trung bình": 2,
+        "Cao": 3
+    };
+    filteredTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+    updateTable(filteredTasks);
+}
+
+
+
+
+
+// xẮP XẾP THEO NGÀY THÁNG HẠN CHÓT
 function sortTasksByDueDate() {
     // Lấy dữ liệu của dự án hiện tại từ localStorage
     let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
