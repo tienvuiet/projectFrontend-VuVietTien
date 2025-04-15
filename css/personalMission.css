@@ -433,7 +433,10 @@ td:nth-child(6){
 .swal2-actions{
   gap: 10px;
 }
+/* .display td:nth-child(3){
+  display: flex;
 
+} */
 
 
 .navEvent2 a.active {
