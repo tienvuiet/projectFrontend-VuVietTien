@@ -43,8 +43,6 @@ const projects = [
 
 //  Kiểm tra và khôi phục dữ liệu 
 let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
-
-// Kiểm tra nếu projectManagement không tồn tại hoặc không có thuộc tính 'members'
 if (!projectManagement) {
   // Khôi phục đối tượng projectManagement với dữ liệu mặc định nếu không tồn tại
   projectManagement = {
@@ -56,11 +54,9 @@ if (!projectManagement) {
   };
   localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
 } else {
-  // Nếu projectManagement đã tồn tại, kiểm tra nếu thuộc tính members có sẵn
   if (!projectManagement.members) {
     // Khởi tạo lại 'members' nếu không có
     projectManagement.members = [];
-    // Lưu lại dữ liệu cập nhật vào localStorage
     localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
   }
 }
@@ -83,9 +79,7 @@ const projectsPerPage = 7; // Số lượng dự án mỗi trang
 
 // Hàm hiển thị các dự án theo trang
 function showProject() {
-  // Lấy lại dữ liệu projects từ localStorage
   let projects = JSON.parse(localStorage.getItem("projects")) || [];
-
   let currentUser = JSON.parse(localStorage.getItem("currentUser"));
   let currentUserId = currentUser.id;
 
@@ -94,13 +88,10 @@ function showProject() {
   // Lọc các dự án mà người dùng hiện tại là chủ sở hữu
   const userProjects = projects.filter(project => project.ownerId === currentUserId);
 
-  // Tính toán chỉ mục bắt đầu và kết thúc cho mỗi trang
+  // chỉ mục bắt đầu và kết thúc cho mỗi trang
   const startIndex = (currentPage - 1) * projectsPerPage;
   const endIndex = startIndex + projectsPerPage;
-
-  // Lấy các dự án trong phạm vi trang hiện tại
   const projectsToDisplay = userProjects.slice(startIndex, endIndex);
-
   // Hiển thị các dự án trong bảng
   projectsToDisplay.forEach((project) => {
     let addCart = `
@@ -126,14 +117,12 @@ function showProject() {
 function updatePagination(totalProjects) {
   const totalPages = Math.ceil(totalProjects / projectsPerPage);
   const pagination = document.querySelector('.transferList');
-
   pagination.innerHTML = ''; // Xóa phân trang hiện tại
-
   // Nút Trang trước
   const prevButton = document.createElement("button");
   prevButton.innerHTML = "&#60;";
   prevButton.id = "prevPage";
-  prevButton.disabled = currentPage === 1; // Nút vô hiệu hóa nếu chúng ta đang ở trang đầu tiên
+  prevButton.disabled = currentPage === 1; // Nút vô hiệu hóa nếu chúng nó đang ở trang đầu tiên
   prevButton.addEventListener("click", function () {
     if (currentPage > 1) {
       currentPage--;
@@ -189,14 +178,14 @@ document.getElementById("save").addEventListener("click", function (event) {
   let upDateProjectName = upDateProjectNameInput.value.trim();
   let projectDescription = projectDescriptionInput.value.trim();
 
-  // Ẩn tất cả thông báo lỗi trước
+  // Ẩn tất cả thông báo lỗi 
   leaveBlankUpDate.style.visibility = "hidden";
   existUpDate.style.visibility = "hidden";
   description2.style.visibility = "hidden";
   nameLengthError.style.visibility = "hidden";
   descriptionLengthError.style.visibility = "hidden";
 
-  // Kiểm tra tên dự án
+  // Kiểm tra TÊN dự án
   if (upDateProjectName === "") {
     leaveBlankUpDate.style.visibility = "visible";
     upDateProjectNameInput.style.border = "1px solid red";
@@ -217,7 +206,7 @@ document.getElementById("save").addEventListener("click", function (event) {
 
   let currentUserId = currentUser.id;
 
-  // Kiểm tra trùng tên dự án
+  // Kiểm tra trùng TÊN dự án
   const projects = JSON.parse(localStorage.getItem("projects")) || [];
   const isDuplicate = projects.some(
     (project) =>
@@ -252,14 +241,34 @@ document.getElementById("save").addEventListener("click", function (event) {
       project.description = projectDescription;
     }
   } else {
+    // let projectsDemo = JSON.parse(localStorage.getItem("projects")) 
+    let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+    let currentMember = JSON.parse(localStorage.getItem("currentUser"));
+    let newCurrentMember = {
+        userID: currentMember.userID,
+        email: currentMember.email,
+        idProjectDetaile: projectManagement.id,
+    }
+    // projectsDemo.members.push(newCurrentMember);
+    // localStorage.setItem("projects", JSON.stringify(projects));
     projects.push({
       id: projects.length > 0 ? projects[projects.length - 1].id + 1 : 1,
       projectName: upDateProjectName,
       description: projectDescription,
       ownerId: currentUserId,
-      members: [],
+      members: [
+        newCurrentMember,
+      ],
     });
   }
+
+
+
+  //sửa
+
+
+
+
 
   // Lưu vào localStorage
   localStorage.setItem("projects", JSON.stringify(projects));
@@ -316,11 +325,7 @@ document.getElementById("projectSearch").addEventListener("input", function () {
     showProject();
     return;
   }
-
-  // Xóa nội dung bảng
   addProject.innerHTML = "";
-
-  // Lọc và hiển thị dự án khớp với từ khóa
   const filteredProjects = projects.filter(
     (project) =>
       project.ownerId === currentUserId &&
@@ -341,9 +346,6 @@ document.getElementById("projectSearch").addEventListener("input", function () {
     `;
     addProject.innerHTML += addCart;
   });
-
-  // Ẩn phân trang khi tìm kiếm (tùy chọn)
-  document.querySelector(".transferList").style.display = filteredProjects.length > 0 ? "none" : "flex";
 });
 
 
@@ -356,6 +358,7 @@ addProject.addEventListener("click", function (event) {
   if (target.classList.contains("clickFix")) {
     event.preventDefault();
     const row = target.closest("tr");
+    //nút  <button class="clickFix">Sửa</button>,
     const projectId = parseInt(row.querySelector(".projectID").textContent);
     const projects = JSON.parse(localStorage.getItem("projects")) || [];
     const project = projects.find((p) => p.id === projectId);

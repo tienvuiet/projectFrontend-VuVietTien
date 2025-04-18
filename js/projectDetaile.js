@@ -25,13 +25,20 @@ function showTitle() {
                 <h2>${projectManagement.projectName}</h2>
                 <p>${projectManagement.description}</p>
             `;
-        addTitle.innerHTML = addcart; // Hiển thị tên và mô tả vào phần tử có class "left2"
+        addTitle.innerHTML = addcart; 
     }
 }
-// Gọi hàm khi trang đã tải xong
+//DOMContentLoaded: Cần thao tác với DOM ngay lập tức
+
 document.addEventListener('DOMContentLoaded', function () {
     showTitle();
 });
+
+
+
+// let projectManagement = JSON.parse(localStorage.getItem("projectManagement"));
+
+// localStorage.setItem("projectManagement", JSON.stringify(projectManagement));
 
 
 
@@ -70,14 +77,14 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
 
         // Kiểm tra định dạng @gmail.com
         if (!newEmail.endsWith("@gmail.com")) {
-            document.querySelector(".addMember").style.display = "none"; // Ẩn modal trước khi báo lỗi
+            document.querySelector(".addMember").style.display = "none";
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
                 text: "Email must be in @gmail.com format!!",
                 footer: '<a href="#">Why i get this error?</a>'
             }).then(() => {
-                document.querySelector(".addMember").style.display = "flex"; // Mở lại sau alert
+                document.querySelector(".addMember").style.display = "flex"; 
             });
 
             document.getElementById("emailMember").style.border = "1px solid red";
@@ -119,10 +126,20 @@ document.getElementById("add3Save").addEventListener("click", function (event) {
         emailMemberFail.style.visibility = "hidden";
         document.getElementById("emailMember").style.border = "";
     }
+    
+
+    let currentMember = JSON.parse(localStorage.getItem("currentUser"));
+    let newCurrentMember = {
+        userID: currentMember.userID,
+        email: currentMember.email,
+        idProjectDetaile: projectManagement.id,
+    }
+    projectManagement.members.push(newCurrentMember);
+
 
     // Tạo userId mới
-    let newUserId = projectManagement.members.length + 1;
-
+    let newUserId = projectManagement.members.length + 2;
+   
     let newMember = {
         userId: newUserId,
         email: newEmail,
@@ -370,7 +387,7 @@ document.querySelector(".showTasksInTable").addEventListener("click", function (
         handleDeleteTask(event);
     }
 });
-
+//.matches() trả về true nếu phần tử hiện tại khớp với bộ chọn CSS mà bạn chỉ định, ngược lại sẽ trả về false.
 //NÚT SỬA
 
 
@@ -379,7 +396,7 @@ document.querySelector(".showTasksInTable").addEventListener("click", function (
 function handleEditTask(event) {
     event.preventDefault();
     let taskRow = event.target.closest("tr");
-
+//.target để xác định nút bấm vào
     const taskId = taskRow.getAttribute("data-task-id");
     //cụ thể là lấy id của tasks tương ứng 
     const allTasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -478,8 +495,6 @@ function updatePersonInChargeOptions() {
 
 
 // SỰ KIỆN LƯU
-// ===== SỰ KIỆN LƯU NHIỆM VỤ (ĐÃ GỘP KIỂM TRA NGÀY VÀ HIỆN CẢNH BÁO) =====
-// SỰ KIỆN LƯU
 document.getElementById("task3Save").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -560,6 +575,7 @@ document.getElementById("task3Save").addEventListener("click", function (event) 
         if (taskIndex !== -1) {
             tasksMission[taskIndex] = {
                 ...tasksMission[taskIndex],
+                //mở rộng hoặc sao chép các phần tử của một đối tượng hoặc mảng.
                 taskName,
                 assigneeId: currentProject.ownerId,
                 idProjectManagement: currentProject.id,
@@ -721,7 +737,7 @@ document.getElementById("task3Cancel").addEventListener("click", function (event
 
 
 
-// TÌM KIẾM NHIỆM VỤ : theo tên hoặc người phụ trách 
+// TÌM KIẾM NHIỆM VỤ : theo tên 
 document.getElementById("searchTask").addEventListener("input", function (event) {
     event.preventDefault();
     const searchTerm = event.target.value.toLowerCase(); // Lấy từ khoá tìm kiếm
@@ -730,10 +746,9 @@ document.getElementById("searchTask").addEventListener("input", function (event)
 
     tasks.forEach(task => {
         const taskName = task.children[0].innerText.toLowerCase(); // Tên nhiệm vụ
-        const personInCharge = task.children[1].innerText.toLowerCase(); // Người phụ trách
-        //duyệt qua mảng task lấy phần tử đầu tiên là nhiệm vụ phần tử thứ 2 là người phụ trách 
+       
         // Nếu taskName hoặc personInCharge có chứa từ khoá tìm kiếm thì hiển thị, ngược lại ẩn
-        if (taskName.includes(searchTerm) || personInCharge.includes(searchTerm)) {
+        if (taskName.includes(searchTerm) ) {
             task.style.display = "table-row";
         } else {
             task.style.display = "none";
@@ -876,6 +891,8 @@ window.addEventListener("DOMContentLoaded", function () {
     showTableMember();
 });
 
-
+// const personInCharge = task.children[1].innerText.toLowerCase(); // Người phụ trách
+// //duyệt qua mảng task lấy phần tử đầu tiên là nhiệm vụ phần tử thứ 2 là người phụ trách 
+// || personInCharge.includes(searchTerm)
 
 
